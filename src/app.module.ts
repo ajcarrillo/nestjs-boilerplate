@@ -7,6 +7,7 @@ import { JoiValidationSchema } from "./config/joi.validation";
 import { AppController } from "./app.controller";
 import { AuthModule } from "./auth/auth.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { SeedModule } from "./seed/seed.module";
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public")
     }),
-    AuthModule
+    AuthModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: []
