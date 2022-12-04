@@ -31,7 +31,7 @@ export class EmployeesService {
       where: {
         id: term,
       },
-      relations: ["academicDegrees"],
+      relations: ["academicDegrees", "positions"],
     })
   }
 

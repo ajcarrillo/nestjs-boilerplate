@@ -30,3 +30,29 @@ Content-Type: application/json
   "career": "EN SISTEMAS COMPUTACIONALES",
   "license": "0002"
 }
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
+Content-Type: application/json
+
+{
+  "description": "Plaza de docente",
+  "movementType": "95",
+  "positionType": "Docente"
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/8b8c4fd2-4b72-429e-b6d4-6c7c2f24c91d
+Content-Type: application/json
+
+{
+  "description": "Plaza de ADMINISTRADOR",
+  "movementType": "10",
+  "positionType": "Administrativo"
+}
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
