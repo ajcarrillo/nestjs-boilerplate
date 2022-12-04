@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/auth/login
+POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
@@ -6,8 +6,10 @@ Content-Type: application/json
   "password": "Abc12345"
 }
 
-> {% client.global.set("auth_token", response.body.token); %}
+> {%
+  client.global.set("auth_token", response.body.token);
+%}
 
 ###
-POST http://localhost:3000/api/auth/me
+POST http://localhost:5000/api/auth/me
 Authorization: Bearer {{ auth_token }}
