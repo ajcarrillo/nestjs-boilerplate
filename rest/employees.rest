@@ -1,0 +1,20 @@
+GET http://localhost:5000/api/employees
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Content-Type: application/json
+
+{
+  "employeeNumber": "369",
+  "name": "Raquel Ivet",
+  "firstName": "Saavedra",
+  "lastName": "Vargas",
+  "rfc": "",
+  "curp": "",
+  "hiredYear": 2010
+}
