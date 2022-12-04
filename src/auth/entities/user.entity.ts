@@ -1,5 +1,5 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { MinLength } from "class-validator";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { MinLength } from "class-validator"
 
 @Entity("users")
 export class User {
@@ -7,42 +7,47 @@ export class User {
   id: string;
 
   @Column("varchar", {
-    unique: true
+    unique: true,
   })
   email: string;
 
   @Column("varchar", {
-    select: false
+    select: false,
   })
   @MinLength(6)
-  password: string;
-
-  @Column("varchar")
-  firstName: string;
-
-  @Column("varchar")
-  lastName: string;
+  password: string
 
   @Column("varchar", {
-    nullable: true
+    name: "first_name",
   })
-  motherName: string;
+  firstName: string
+
+  @Column("varchar")
+  lastName: string
+
+  @Column("varchar", {
+    nullable: true,
+  })
+  motherName: string
 
   @Column("boolean", {
-    default: true
+    default: true,
   })
-  isActive: boolean;
+  isActive: boolean
 
-  @Column({ type: "simple-array" })
-  roles: string[];
+  @Column("text", {
+    array: true,
+    default: ["user"],
+  })
+  roles: string[]
 
   @BeforeInsert()
   normalizeEmailOnInsert() {
-    this.email = this.email.toLowerCase();
+    this.email = this.email.toLowerCase()
   }
 
   @BeforeUpdate()
   normalizeEmailOnUpdate() {
-    this.normalizeEmailOnInsert();
+    this.normalizeEmailOnInsert()
   }
 }

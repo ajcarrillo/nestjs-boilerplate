@@ -1,13 +1,14 @@
-import { Module } from "@nestjs/common";
-import { ServeStaticModule } from "@nestjs/serve-static";
-import { join } from "path";
-import { ConfigModule } from "@nestjs/config";
-import { EnvConfigurations } from "./config/env.config";
-import { JoiValidationSchema } from "./config/joi.validation";
-import { AppController } from "./app.controller";
-import { AuthModule } from "./auth/auth.module";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { SeedModule } from "./seed/seed.module";
+import { Module } from "@nestjs/common"
+import { ServeStaticModule } from "@nestjs/serve-static"
+import { join } from "path"
+import { ConfigModule } from "@nestjs/config"
+import { EnvConfigurations } from "./config/env.config"
+import { JoiValidationSchema } from "./config/joi.validation"
+import { AppController } from "./app.controller"
+import { AuthModule } from "./auth/auth.module"
+import { TypeOrmModule } from "@nestjs/typeorm"
+import { SeedModule } from "./seed/seed.module"
+import { UsersModule } from "./users/users.module"
 
 @Module({
   imports: [
@@ -15,23 +16,22 @@ import { SeedModule } from "./seed/seed.module";
       load: [EnvConfigurations],
       validationSchema: JoiValidationSchema
     }),
-    //TODO: Implement the TypeORM module
     TypeOrmModule.forRoot({
-      type: "mysql",
-      host: "127.0.0.1",
-      port: 3306,
-      username: "root",
-      password: "qwerty",
-      database: "db",
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
-      charset: "utf8"
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "..", "public")
+      rootPath: join(__dirname, "..", "public"),
     }),
     AuthModule,
-    SeedModule
+    SeedModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: []
