@@ -7,10 +7,12 @@ import { AcademicDegreeController } from "./academic-degree/academic-degree.cont
 import { AcademicDegreeService } from "./academic-degree/academic-degree.service"
 import { PositionController } from "./position/position.controller"
 import { PositionService } from "./position/position.service"
+import { JobController } from "./job/job.controller"
+import { JobService } from "./job/job.service"
 
 @Module({
-  controllers: [EmployeesController, AcademicDegreeController, PositionController],
-  providers: [EmployeesService, AcademicDegreeService, PositionService],
+  controllers: [EmployeesController, AcademicDegreeController, PositionController, JobController],
+  providers: [EmployeesService, AcademicDegreeService, PositionService, JobService],
   imports: [TypeOrmModule.forFeature([
     Employee,
     AcademicDegree,

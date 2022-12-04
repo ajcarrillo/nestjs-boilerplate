@@ -15,7 +15,9 @@ export class Job {
   @Column("date")
   assignamentDate: Date
 
-  @Column("boolean")
+  @Column("boolean", {
+    default: true,
+  })
   active: boolean
 
   @ManyToOne(() => Employee, employee => employee.jobs)

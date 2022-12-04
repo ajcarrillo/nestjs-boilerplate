@@ -2,7 +2,7 @@ GET http://localhost:5000/api/employees
 
 ###
 
-GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615
 
 ###
 
@@ -19,7 +19,7 @@ Content-Type: application/json
   "hiredYear": 2010
 }
 
-###
+### Academic Degree
 
 POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/academic-degrees
 Content-Type: application/json
@@ -31,7 +31,7 @@ Content-Type: application/json
   "license": "0002"
 }
 
-###
+### Positions
 
 POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
 Content-Type: application/json
@@ -56,3 +56,31 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+
+### Jobs
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs
+Content-Type: application/json
+
+{
+  "name": "Some job",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+Content-Type: application/json
+
+{
+  "name": "Some job LOREM",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
