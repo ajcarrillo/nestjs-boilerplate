@@ -1,0 +1,613 @@
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T182845.200.json
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships/5aaff7db-d903-42e8-8455-283f813867f8
+Content-Type: application/json
+Content-Length: 74
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "type": "SIDEPAE",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+<> 2022-12-04T182728.200.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "type": "SNII",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+<> 2022-12-04T182624.400.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "type": "SNII",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+<> 2022-12-04T182620.400.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+Content-Length: 70
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "type": "SNI",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+<> 2022-12-04T182608.201.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "type": "SNI",
+  "level": "1",
+  "assignamentDate": "2010-01-01",
+}
+
+<> 2022-12-04T182601.400.json
+
+###
+
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175902.200.json
+
+###
+
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e6361
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175843.400.json
+
+###
+
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e6361
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175841.400.json
+
+###
+
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e6361
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175827.400.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175816.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175756.200.json
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T175019.200.json
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+Content-Type: application/json
+Content-Length: 124
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Some job LOREM",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+<> 2022-12-04T174939.200.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs
+Content-Type: application/json
+Content-Length: 118
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Some job",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+<> 2022-12-04T174827.201.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs
+Content-Type: application/json
+Content-Length: 118
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Some job",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+<> 2022-12-04T174745.400.json
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T172349.200.json
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T172305.404.json
+
+###
+
+DELETE http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de docente",
+  "movementType": "95",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T171722.201.json
+
+###
+
+DELETE http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/f1a05016-9afe-4d55-95eb-82b54cb2ea6c
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T171657.200.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de docente",
+  "movementType": "95",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T171605.201.json
+
+###
+
+DELETE http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/90b4ac45-7c7c-49fd-8925-ac40a0dc7421
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T171515.200.json
+
+###
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de docente",
+  "movementType": "95",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T171406.201.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T170846.200.json
+
+###
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de docente",
+  "movementType": "10",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T170416.201.json
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/8b8c4fd2-4b72-429e-b6d4-6c7c2f24c91d
+Content-Type: application/json
+Content-Length: 105
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de ADMINISTRADOR",
+  "movementType": "10",
+  "positionType": "Administrativo"
+}
+
+<> 2022-12-04T170412.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T170203.200.json
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/8b8c4fd2-4b72-429e-b6d4-6c7c2f24c91d
+Content-Type: application/json
+Content-Length: 98
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de ADMINISTRADOR",
+  "movementType": "10",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T170127.200.json
+
+###
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "description": "Plaza de docente",
+  "movementType": "10",
+  "positionType": "Docente"
+}
+
+<> 2022-12-04T165908.201.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T163434.200.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T163430.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T163425.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161455.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161453.200.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161446.200.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161423.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161408.200.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T161243.200.json
+
+###
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/academic-degrees
+Content-Type: application/json
+Content-Length: 121
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "abbreviatedGrade": "M.S.C.",
+  "grade": "MAESTRIA",
+  "career": "EN SISTEMAS COMPUTACIONALES",
+  "license": "0002"
+}
+
+<> 2022-12-04T145111.201.json
+
+###
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/academic-degrees
+Content-Type: application/json
+Content-Length: 111
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "abbreviatedGrade": "LIC.",
+  "grade": "LICENCIATURA",
+  "career": "EN INFORMÁTICA",
+  "license": "0002"
+}
+
+<> 2022-12-04T144915.201.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T124647.200.json
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Content-Type: application/json
+Content-Length: 153
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "employeeNumber": "369",
+  "name": "Raquel Ivet",
+  "firstName": "Saavedra",
+  "lastName": "Vargas",
+  "rfc": "",
+  "curp": "",
+  "hiredYear": 2010
+}
+
+<> 2022-12-04T124643.200.json
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Content-Type: application/json
+Content-Length: 201
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": "d76e1dfe-2721-4bf2-8f2d-fd7946843643",
+  "employeeNumber": "369",
+  "name": "Raquel Ivet",
+  "firstName": "Saavedra",
+  "lastName": "Vargas",
+  "rfc": "",
+  "curp": "",
+  "hiredYear": 2010
+}
+
+<> 2022-12-04T124630.400.json
+
+###
+
+GET http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T124455.200.json
+
+###
+
+GET http://localhost:5000/api/employees
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-04T124419.200.json
+
+###
+
+POST http://localhost:5000/api/seed
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-03T222354.201.html
+
+###
+
+GET http://localhost:5000/api/users/Raquel
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-03T220358.200.json
+
+###
+
+GET http://localhost:5000/api/users/Raquel
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.5)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2022-12-03T220356-1.200.json
+
+###
+

@@ -84,3 +84,25 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+
+### Scholarships
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+
+{
+  "type": "SNI",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships/5aaff7db-d903-42e8-8455-283f813867f8
+Content-Type: application/json
+
+{
+  "type": "SIDEPAE",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}

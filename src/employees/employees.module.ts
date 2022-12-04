@@ -9,10 +9,12 @@ import { PositionController } from "./position/position.controller"
 import { PositionService } from "./position/position.service"
 import { JobController } from "./job/job.controller"
 import { JobService } from "./job/job.service"
+import { ScholarshipController } from "./scholarship/scholarship.controller"
+import { ScholarshipService } from "./scholarship/scholarship.service"
 
 @Module({
-  controllers: [EmployeesController, AcademicDegreeController, PositionController, JobController],
-  providers: [EmployeesService, AcademicDegreeService, PositionService, JobService],
+  controllers: [EmployeesController, AcademicDegreeController, PositionController, JobController, ScholarshipController],
+  providers: [EmployeesService, AcademicDegreeService, PositionService, JobService, ScholarshipService],
   imports: [TypeOrmModule.forFeature([
     Employee,
     AcademicDegree,
