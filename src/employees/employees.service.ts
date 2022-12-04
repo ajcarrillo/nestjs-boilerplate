@@ -1,8 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { CreateEmployeeDto } from "./dto/create-employee.dto"
-import { UpdateEmployeeDto } from "./dto/update-employee.dto"
+import { CreateEmployeeDto, UpdateEmployeeDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
-import { Employee } from "./entities/employee.entity"
+import { Employee } from "./entities"
 import { Repository } from "typeorm"
 import { isUUID } from "class-validator"
 
@@ -28,7 +27,12 @@ export class EmployeesService {
       throw new BadRequestException(`The term ${term} is not a valid UUID`)
     }
 
-    return await this.employeeRepository.findOneBy({ id: term })
+    return await this.employeeRepository.findOne({
+      where: {
+        id: term,
+      },
+      relations: ["academicDegrees"],
+    })
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {

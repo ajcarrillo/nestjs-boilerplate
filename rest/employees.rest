@@ -18,3 +18,15 @@ Content-Type: application/json
   "curp": "",
   "hiredYear": 2010
 }
+
+###
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/academic-degrees
+Content-Type: application/json
+
+{
+  "abbreviatedGrade": "M.S.C.",
+  "grade": "MAESTRIA",
+  "career": "EN SISTEMAS COMPUTACIONALES",
+  "license": "0002"
+}
