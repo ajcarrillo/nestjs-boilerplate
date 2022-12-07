@@ -1,14 +1,56 @@
 version: '3'
 
 services:
+  dev:
+    container_name: nestjs_api_dev
+    image: alpercitak/nest-pnpm-docker
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: pnpm run start:debug
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: "no"
+    networks:
+      - nestjs-network
+
   db:
     image: postgres:14.3
     restart: "no"
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     container_name: itch-planeacion-db
     volumes:
       - ./postgres:/var/lib/postgresql/data
+    networks:
+      - nestjs-network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    volumes:
+      - ./docker/nginx/templates:/etc/nginx/templates
+      - ./docker/nginx:/etc/nginx/conf.d
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - BACKEND_PORT=${BACKEND_PORT}
+    ports:
+      - 80:${NGINX_PORT}
+    depends_on:
+      - dev
+      - db
+    networks:
+      - nestjs-network
+
+networks:
+  nestjs-network:
+    driver: bridge
