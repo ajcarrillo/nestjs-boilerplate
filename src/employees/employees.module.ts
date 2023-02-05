@@ -11,10 +11,12 @@ import { JobController } from "./job/job.controller"
 import { JobService } from "./job/job.service"
 import { ScholarshipController } from "./scholarship/scholarship.controller"
 import { ScholarshipService } from "./scholarship/scholarship.service"
+import { AreasController } from "./areas/areas.controller"
+import { AreasService } from "./areas/areas.service"
 
 @Module({
-  controllers: [EmployeesController, AcademicDegreeController, PositionController, JobController, ScholarshipController],
-  providers: [EmployeesService, AcademicDegreeService, PositionService, JobService, ScholarshipService],
+  controllers: [EmployeesController, AcademicDegreeController, PositionController, JobController, ScholarshipController, AreasController],
+  providers: [EmployeesService, AcademicDegreeService, PositionService, JobService, ScholarshipService, AreasService],
   imports: [TypeOrmModule.forFeature([
     Employee,
     AcademicDegree,
@@ -23,7 +25,8 @@ import { ScholarshipService } from "./scholarship/scholarship.service"
     Area,
     AssignamentArea,
     Scholarship,
-  ])],
+  ]),
+  ],
 })
 export class EmployeesModule {
 }
