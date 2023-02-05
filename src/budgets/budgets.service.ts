@@ -1,26 +1,58 @@
-import { Injectable } from "@nestjs/common"
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"
 import { CreateBudgetDto } from "./dto/create-budget.dto"
 import { UpdateBudgetDto } from "./dto/update-budget.dto"
+import { Budget } from "./entities"
+import { InjectRepository } from "@nestjs/typeorm"
+import { Repository } from "typeorm"
+import { isUUID } from "class-validator"
 
 @Injectable()
 export class BudgetsService {
-  create(createBudgetDto: CreateBudgetDto) {
-    return "This action adds a new budget"
+  constructor(
+    @InjectRepository(Budget)
+    private readonly budgetRepository: Repository<Budget>,
+  ) {
   }
 
-  findAll() {
-    return `This action returns all budgets`
+  async create(createBudgetDto: CreateBudgetDto) {
+    const budget = this.budgetRepository.create(createBudgetDto)
+
+    return await this.budgetRepository.save(budget)
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} budget`
+  async findAll() {
+    return await this.budgetRepository.find()
   }
 
-  update(id: number, updateBudgetDto: UpdateBudgetDto) {
-    return `This action updates a #${id} budget`
+  async findOne(id: string) {
+    if (!isUUID(id)) {
+      throw new BadRequestException(`El id ${id} no es un UUID válido`)
+    }
+
+    return await this.budgetRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ["details", "details.article", "details.action", "details.line", "details.department" ],
+    })
   }
 
-  remove(id: number) {
+  async update(id: string, updateBudgetDto: UpdateBudgetDto) {
+    const { ...budget } = updateBudgetDto
+
+    const budgetToUpdate = await this.budgetRepository.preload({
+      id,
+      ...budget,
+    })
+
+    if (!budgetToUpdate) {
+      throw new NotFoundException(`El presupuesto con el id ${id} no existe`)
+    }
+
+    return await this.budgetRepository.save(budgetToUpdate)
+  }
+
+  async remove(id: number) {
     return `This action removes a #${id} budget`
   }
 }

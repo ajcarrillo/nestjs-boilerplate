@@ -9,19 +9,34 @@ import { Article } from "./article.entity"
 @Entity("budget_details")
 export class BudgetDetail {
   @PrimaryGeneratedColumn("increment")
-  id: bigint
+  id: number
+
+  @Column("uuid")
+  budget_id: string
 
   @ManyToOne(() => Budget, budget => budget.details)
   budget: Budget
 
+  @Column("number")
+  action_id: number
+
   @ManyToOne(() => Action)
   action: Action
+
+  @Column("number")
+  line_id: number
 
   @ManyToOne(() => Line)
   line: Line
 
+  @Column("uuid")
+  department_id: string
+
   @ManyToOne(() => Area)
   department: Area
+
+  @Column("number")
+  article_id: number
 
   @ManyToOne(() => Article)
   article: Article
@@ -38,6 +53,6 @@ export class BudgetDetail {
   @Column("int")
   quantity: number
 
-  @Column("decimal", { precision: 10, scale: 2 })
+  @Column("decimal", { precision: 10, scale: 2, nullable: true })
   total: number
 }

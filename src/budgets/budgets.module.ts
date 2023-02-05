@@ -7,10 +7,14 @@ import { ArticlesController } from "./articles/articles.controller"
 import { ArticlesService } from "./articles/articles.service"
 import { LinesController } from "./lines/lines.controller"
 import { LinesService } from "./lines/lines.service"
+import { ActionsController } from "./actions/actions.controller"
+import { ActionsService } from "./actions/actions.service"
+import { BudgetDetailsController } from "./budget-details/budget-details.controller"
+import { BudgetDetailsService } from "./budget-details/budget-details.service"
 
 @Module({
-  controllers: [BudgetsController, ArticlesController, LinesController],
-  providers: [BudgetsService, ArticlesService, LinesService],
+  controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController],
+  providers: [BudgetsService, ArticlesService, LinesService, ActionsService, BudgetDetailsService],
   imports: [
     TypeOrmModule.forFeature([
       Action,
