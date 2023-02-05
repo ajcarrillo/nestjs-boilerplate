@@ -17,6 +17,11 @@ export class LinesController {
     return this.linesService.findAll()
   }
 
+  @Get("dictionary")
+  getDictionary() {
+    return this.linesService.getDictionary()
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.linesService.findOne(+id)

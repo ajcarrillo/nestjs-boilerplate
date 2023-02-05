@@ -18,6 +18,11 @@ export class AreasController {
     return this.areasService.findAll()
   }
 
+  @Get("dictionary")
+  getDictionary() {
+    return this.areasService.getDictionary()
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.areasService.findOne(id)

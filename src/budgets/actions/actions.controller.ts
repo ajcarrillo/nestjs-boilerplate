@@ -16,6 +16,11 @@ export class ActionsController {
     return this.actionsService.findAll();
   }
 
+  @Get('dictionary')
+  getDictionary() {
+    return this.actionsService.getDictionary();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.actionsService.findOne(+id);

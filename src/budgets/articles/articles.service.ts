@@ -36,4 +36,13 @@ export class ArticlesService {
 
     return await this.articleRepository.save(articleToUpdate)
   }
+
+  async getDictionary() {
+    const articles = await this.articleRepository.find()
+
+    return articles.map(article => ({
+      value: article.id,
+      label: article.name,
+    }))
+  }
 }

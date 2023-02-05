@@ -46,4 +46,13 @@ export class AreasService {
   async remove(id: string) {
     return `This action removes a #${id} area`
   }
+
+  async getDictionary() {
+    const areas = await this.areaRepository.find()
+
+    return areas.map(area => ({
+      value: area.id,
+      label: area.alias,
+    }))
+  }
 }

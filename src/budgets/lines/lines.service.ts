@@ -44,4 +44,13 @@ export class LinesService {
   remove(id: number) {
     return `This action removes a #${id} line`
   }
+
+  async getDictionary() {
+    const lines = await this.lineRepository.find()
+
+    return lines.map(line => ({
+      value: line.id,
+      label: line.name,
+    }))
+  }
 }

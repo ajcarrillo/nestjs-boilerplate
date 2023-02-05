@@ -21,6 +21,11 @@ export class ArticlesController {
     return this.articlesService.create(createArticleDto)
   }
 
+  @Get("dictionary")
+  getDictionary() {
+    return this.articlesService.getDictionary()
+  }
+
   @Put(":id")
   update(
     @Param("id") id: string,

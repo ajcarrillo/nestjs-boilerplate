@@ -44,4 +44,13 @@ export class ActionsService {
   remove(id: number) {
     return `This action removes a #${id} action`;
   }
+
+  async getDictionary() {
+    const actions = await this.actionRepository.find()
+
+    return actions.map(action => ({
+      value: action.id,
+      label: action.name,
+    }))
+  }
 }
