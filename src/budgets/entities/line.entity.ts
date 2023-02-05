@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 @Entity("lines")
 export class Line {
   @PrimaryGeneratedColumn("increment")
-  id: bigint
+  id: number
 
   @Column("varchar")
   name: string
