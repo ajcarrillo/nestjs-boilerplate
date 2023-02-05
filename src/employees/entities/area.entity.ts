@@ -7,4 +7,9 @@ export class Area {
 
   @Column("varchar")
   description: string
+
+  @Column("varchar", {
+    nullable: true,
+  })
+  alias: string
 }

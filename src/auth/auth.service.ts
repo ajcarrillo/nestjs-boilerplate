@@ -1,11 +1,11 @@
-import { Injectable, Logger, UnauthorizedException } from "@nestjs/common";
-import { LoginUserDto } from "./dto";
-import * as bcrypt from "bcrypt";
-import { JwtPayload } from "./interfaces/jwt-payload.interface";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "./entities";
-import { Repository } from "typeorm";
-import { JwtService } from "@nestjs/jwt";
+import { Injectable, Logger, UnauthorizedException } from "@nestjs/common"
+import { LoginUserDto } from "./dto"
+import * as bcrypt from "bcrypt"
+import { JwtPayload } from "./interfaces/jwt-payload.interface"
+import { InjectRepository } from "@nestjs/typeorm"
+import { User } from "./entities"
+import { Repository } from "typeorm"
+import { JwtService } from "@nestjs/jwt"
 
 @Injectable()
 export class AuthService {
@@ -23,7 +23,16 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true, id: true }
+      select: {
+        email: true,
+        password: true,
+        id: true,
+        lastName: true,
+        firstName: true,
+        roles: true,
+        motherName: true,
+        isActive: true,
+      },
     });
 
     if (!user) throw new UnauthorizedException("Credentials are invalid");

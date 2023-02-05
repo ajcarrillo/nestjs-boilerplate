@@ -11,6 +11,7 @@ import { SeedModule } from "./seed/seed.module"
 import { UsersModule } from "./users/users.module"
 import { EmployeesModule } from "./employees/employees.module"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
+import { BudgetsModule } from "./budgets/budgets.module"
 
 
 @Module({
@@ -37,6 +38,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies"
     SeedModule,
     UsersModule,
     EmployeesModule,
+    BudgetsModule,
   ],
   controllers: [AppController],
   providers: []
