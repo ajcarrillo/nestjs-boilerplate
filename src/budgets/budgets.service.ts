@@ -29,12 +29,31 @@ export class BudgetsService {
       throw new BadRequestException(`El id ${id} no es un UUID válido`)
     }
 
-    return await this.budgetRepository.findOne({
+    const json = await this.budgetRepository.findOne({
       where: {
         id,
       },
-      relations: ["details", "details.article", "details.action", "details.line", "details.department" ],
+      relations: ["details", ],
     })
+
+    return {
+      ...json,
+      details: json.details.map(detail => {
+        const months = detail.months.reduce((acc, month) => {
+          acc[month.month] = {
+            "id": month.id,
+            "budget_detail_id": month.budget_detail_id,
+            "month": month.month,
+            "quantity": month.quantity,
+            "authorized_quantity": month.authorized_quantity,
+            "total": detail.estimated_amount * month.quantity,
+          };
+          return acc;
+        }, {});
+        delete detail.months;
+        return { ...detail, ...months };
+      })
+    };
   }
 
   async update(id: string, updateBudgetDto: UpdateBudgetDto) {

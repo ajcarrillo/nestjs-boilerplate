@@ -1,30 +1,41 @@
-import { IsNumber, IsString } from "class-validator"
+import { IsArray, IsNumber, IsObject, IsString } from "class-validator"
+
+interface GeneralDictionary {
+  value: string|number
+  label: string
+}
+
+interface BudgetMonth {
+  quantity: number
+  month: string
+  budget_detail_id: string
+}
 
 export class CreateBudgetDetailDto {
-  @IsNumber()
-  month
+  @IsObject()
+  action: GeneralDictionary
+
+  @IsObject()
+  line: GeneralDictionary
+
+  @IsObject()
+  area: GeneralDictionary
+
+  @IsObject()
+  article: GeneralDictionary
 
   @IsNumber()
-  estimated_amount
+  estimated_amount: number
 
   @IsString()
-  justification
+  justification: string
+
+  @IsArray()
+  month: string[]
 
   @IsNumber()
-  quantity
+  total: number
 
-  @IsNumber()
-  budget_id
-
-  @IsNumber()
-  action_id
-
-  @IsNumber()
-  line_id
-
-  @IsNumber()
-  department_id
-
-  @IsNumber()
-  article_id
+  @IsArray()
+  budgetMonths: BudgetMonth[]
 }

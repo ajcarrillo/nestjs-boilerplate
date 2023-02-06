@@ -11,6 +11,7 @@ import { ActionsController } from "./actions/actions.controller"
 import { ActionsService } from "./actions/actions.service"
 import { BudgetDetailsController } from "./budget-details/budget-details.controller"
 import { BudgetDetailsService } from "./budget-details/budget-details.service"
+import { BudgetDetailMonth } from "./entities/budget-detail-month.entity"
 
 @Module({
   controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController],
@@ -22,6 +23,7 @@ import { BudgetDetailsService } from "./budget-details/budget-details.service"
       Budget,
       BudgetDetail,
       Line,
+      BudgetDetailMonth
     ]),
   ],
 })

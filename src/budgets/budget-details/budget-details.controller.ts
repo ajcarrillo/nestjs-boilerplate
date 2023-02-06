@@ -1,15 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common"
 import { BudgetDetailsService } from "./budget-details.service"
-import { CreateBudgetDetailDto } from "./dto/create-budget-detail.dto"
-import { UpdateBudgetDetailDto } from "./dto/update-budget-detail.dto"
+import { CreateBudgetDetailDto, UpdateBudgetDetailDto } from "./dto"
 
-@Controller('budget/:budgetId/budget-details')
+@Controller('budgets/:budgetId/budget-details')
 export class BudgetDetailsController {
   constructor(private readonly budgetDetailsService: BudgetDetailsService) {}
 
   @Post()
-  create(@Body() createBudgetDetailDto: CreateBudgetDetailDto) {
-    return this.budgetDetailsService.create(createBudgetDetailDto);
+  create(@Param('budgetId') budgetId: string, @Body() createBudgetDetailDto: CreateBudgetDetailDto) {
+    return this.budgetDetailsService.create(budgetId, createBudgetDetailDto);
   }
 
   @Get()
