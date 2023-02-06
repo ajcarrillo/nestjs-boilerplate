@@ -4,6 +4,8 @@ import { User } from "../auth/entities"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { isUUID } from "class-validator"
+import * as bcrypt from "bcrypt"
+
 
 @Injectable()
 export class UsersService {
@@ -13,8 +15,18 @@ export class UsersService {
   ) {
   }
 
-  create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto)
+  async create(createUserDto: CreateUserDto) {
+    const { password, ...userData } = createUserDto
+
+    const user = this.userRepository.create({
+      ...userData,
+      password: bcrypt.hashSync(password, 10),
+    })
+
+    await this.userRepository.save(user)
+    delete user.password
+
+    return user
   }
 
   async findAll() {
@@ -39,8 +51,20 @@ export class UsersService {
     return user
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const { password, ...userData } = updateUserDto
+
+    const userToUpdate = await this.userRepository.preload({
+      id,
+      ...userData,
+      password: bcrypt.hashSync(password, 10),
+    })
+
+    if (!userToUpdate) {
+      throw new NotFoundException(`User with id ${id} not found`)
+    }
+
+    return this.userRepository.save(userToUpdate)
   }
 
   remove(id: number) {
