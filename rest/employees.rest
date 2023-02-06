@@ -1,0 +1,108 @@
+GET http://localhost:5000/api/employees
+
+###
+
+GET http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643
+Content-Type: application/json
+
+{
+  "employeeNumber": "369",
+  "name": "Raquel Ivet",
+  "firstName": "Saavedra",
+  "lastName": "Vargas",
+  "rfc": "",
+  "curp": "",
+  "hiredYear": 2010
+}
+
+### Academic Degree
+
+POST http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/academic-degrees
+Content-Type: application/json
+
+{
+  "abbreviatedGrade": "M.S.C.",
+  "grade": "MAESTRIA",
+  "career": "EN SISTEMAS COMPUTACIONALES",
+  "license": "0002"
+}
+
+### Positions
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions
+Content-Type: application/json
+
+{
+  "description": "Plaza de docente",
+  "movementType": "95",
+  "positionType": "Docente"
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/d76e1dfe-2721-4bf2-8f2d-fd7946843643/positions/8b8c4fd2-4b72-429e-b6d4-6c7c2f24c91d
+Content-Type: application/json
+
+{
+  "description": "Plaza de ADMINISTRADOR",
+  "movementType": "10",
+  "positionType": "Administrativo"
+}
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/positions/eb7ed9f4-fb9f-4f5a-b2d6-fe616d04c434
+
+### Jobs
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs
+Content-Type: application/json
+
+{
+  "name": "Some job",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+Content-Type: application/json
+
+{
+  "name": "Some job LOREM",
+  "description": "Some job description",
+  "assignamentDate": "2010-01-01",
+  "active": true
+}
+
+###
+
+DELETE http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/jobs/1b054532-4e96-459f-90c8-11603ab713bd
+
+### Scholarships
+
+POST http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships
+Content-Type: application/json
+
+{
+  "type": "SNI",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}
+
+###
+
+PATCH http://localhost:5000/api/employees/996bda45-6799-49b9-8b25-d9bb72e63615/scholarships/5aaff7db-d903-42e8-8455-283f813867f8
+Content-Type: application/json
+
+{
+  "type": "SIDEPAE",
+  "level": "1",
+  "assignamentDate": "2010-01-01"
+}

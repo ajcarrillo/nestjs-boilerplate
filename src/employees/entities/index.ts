@@ -1,0 +1,7 @@
+export * from "./academic-degree.entity"
+export * from "./area.entity"
+export * from "./assignament-area.entity"
+export * from "./employee.entity"
+export * from "./job.entity"
+export * from "./position.entity"
+export * from "./scholarship.entity"

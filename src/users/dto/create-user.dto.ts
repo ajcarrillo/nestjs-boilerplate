@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator"
+import { IsArray, IsBoolean, IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator"
 
 export class CreateUserDto {
   @IsEmail()
@@ -24,9 +24,9 @@ export class CreateUserDto {
   @IsOptional()
   motherName
 
-  @IsString()
+  @IsBoolean()
   isActive
 
-  @IsString()
+  @IsArray()
   roles
 }

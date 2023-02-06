@@ -17,9 +17,7 @@ export class User {
   @MinLength(6)
   password: string
 
-  @Column("varchar", {
-    name: "first_name",
-  })
+  @Column("varchar")
   firstName: string
 
   @Column("varchar")

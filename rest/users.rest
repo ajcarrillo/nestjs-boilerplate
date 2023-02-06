@@ -1,5 +1,5 @@
-GET http://localhost:5000/api/users
+GET http://localhost:3000/api/users
 
 ###
 
-GET http://localhost:5000/api/users/Raquel
+GET http://localhost:3000/api/users/1e8190b3-b7b6-4550-b871-289fe384016f

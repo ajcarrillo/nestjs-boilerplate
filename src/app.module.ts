@@ -9,12 +9,16 @@ import { AuthModule } from "./auth/auth.module"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { SeedModule } from "./seed/seed.module"
 import { UsersModule } from "./users/users.module"
+import { EmployeesModule } from "./employees/employees.module"
+import { SnakeNamingStrategy } from "typeorm-naming-strategies"
+import { BudgetsModule } from "./budgets/budgets.module"
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [EnvConfigurations],
-      validationSchema: JoiValidationSchema
+      validationSchema: JoiValidationSchema,
     }),
     TypeOrmModule.forRoot({
       type: "postgres",
@@ -25,6 +29,7 @@ import { UsersModule } from "./users/users.module"
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
@@ -32,6 +37,8 @@ import { UsersModule } from "./users/users.module"
     AuthModule,
     SeedModule,
     UsersModule,
+    EmployeesModule,
+    BudgetsModule,
   ],
   controllers: [AppController],
   providers: []
