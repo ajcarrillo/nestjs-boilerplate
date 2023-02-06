@@ -27,6 +27,7 @@ import { AreasService } from "./areas/areas.service"
     Scholarship,
   ]),
   ],
+  exports: [TypeOrmModule]
 })
 export class EmployeesModule {
 }

@@ -12,4 +12,9 @@ export class Area {
     nullable: true,
   })
   alias: string
+
+  @Column("varchar", {
+    nullable: true,
+  })
+  clave_oficial: string
 }

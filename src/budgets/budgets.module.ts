@@ -26,6 +26,7 @@ import { BudgetDetailMonth } from "./entities/budget-detail-month.entity"
       BudgetDetailMonth
     ]),
   ],
+  exports: [TypeOrmModule]
 })
 export class BudgetsModule {
 }
