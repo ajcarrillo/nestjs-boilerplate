@@ -93,7 +93,6 @@ export class SeedService {
     const articles: Article[] = [];
 
     seedArticles.forEach(article => {
-      //@ts-ignore
       articles.push(this.articleRepository.create(article));
     });
 
