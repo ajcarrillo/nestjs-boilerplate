@@ -3,6 +3,7 @@ import { IsArray, IsNumber, IsObject, IsString } from "class-validator"
 interface GeneralDictionary {
   value: string|number
   label: string
+  caption?: string
 }
 
 interface BudgetMonth {

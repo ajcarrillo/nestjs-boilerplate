@@ -43,6 +43,7 @@ export class ArticlesService {
     return articles.map(article => ({
       value: article.id,
       label: article.name,
+      caption: article.description,
     }))
   }
 }

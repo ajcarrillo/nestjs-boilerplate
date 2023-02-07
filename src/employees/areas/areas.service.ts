@@ -48,7 +48,11 @@ export class AreasService {
   }
 
   async getDictionary() {
-    const areas = await this.areaRepository.find()
+    const areas = await this.areaRepository.find({
+      order: {
+        alias: "ASC",
+      }
+    })
 
     return areas.map(area => ({
       value: area.id,
