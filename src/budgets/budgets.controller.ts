@@ -8,6 +8,11 @@ export class BudgetsController {
   constructor(private readonly budgetsService: BudgetsService) {
   }
 
+  @Get("dictionary")
+  getDictionary() {
+    return this.budgetsService.getDictionary()
+  }
+
   @Post()
   create(@Body() createBudgetDto: CreateBudgetDto) {
     return this.budgetsService.create(createBudgetDto)

@@ -24,4 +24,7 @@ export class BudgetDetailMonth {
 
   @Column("int", {nullable: true})
   authorized_quantity: number
+
+  @Column("boolean", {default: false})
+  authorized: boolean
 }

@@ -74,4 +74,10 @@ export class BudgetsService {
   async remove(id: number) {
     return `This action removes a #${id} budget`
   }
+
+  async getDictionary() {
+    return await this.budgetRepository.find({
+      select: ["id", "year"],
+    })
+  }
 }

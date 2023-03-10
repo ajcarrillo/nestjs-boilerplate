@@ -42,8 +42,12 @@ export class BudgetDetailsService {
     return await this.budgetDetailRepository.save(budgetDetail)
   }
 
-  async findAll() {
-    return await this.budgetDetailRepository.find()
+  async findAll(budgetId: string) {
+    return await this.budgetDetailRepository.find({
+      where: {
+        budget_id: budgetId,
+      }
+    })
   }
 
   async findOne(id: number) {

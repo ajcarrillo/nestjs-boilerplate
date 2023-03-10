@@ -12,8 +12,8 @@ export class BudgetDetailsController {
   }
 
   @Get()
-  findAll() {
-    return this.budgetDetailsService.findAll();
+  findAll(@Param('budgetId') budgetId: string) {
+    return this.budgetDetailsService.findAll(budgetId);
   }
 
   @Get(':id')

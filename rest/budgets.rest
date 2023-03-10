@@ -2,11 +2,11 @@ GET http://localhost:3000/api/budgets
 
 ###
 
-GET http://localhost:3000/api/budgets/5ddc6135-2fdb-4546-a292-06b562412751/
+GET http://localhost:3000/api/budgets/b2745dda-721a-4eb0-8e26-3f1f6f8336de/
 
 ###
 
-GET http://localhost:3000/api/budgets/5ddc6135-2fdb-4546-a292-06b562412751/budget-details
+GET http://localhost:3000/api/budgets/b2745dda-721a-4eb0-8e26-3f1f6f8336de/budget-details
 
 ###
 
