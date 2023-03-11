@@ -1,0 +1,11 @@
+GET {{api_url}}/api/requisitions/01943a81-f1b9-40d6-864d-068f90be52f6
+###
+
+POST {{api_url}}/api/requisitions
+Content-Type: application/json
+
+{
+  "requisition_number": "234",
+  "preparation_date": "2017-01-01",
+  "processing_date": "2017-01-01"
+}

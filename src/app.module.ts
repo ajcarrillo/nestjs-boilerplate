@@ -12,6 +12,7 @@ import { UsersModule } from "./users/users.module"
 import { EmployeesModule } from "./employees/employees.module"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 import { BudgetsModule } from "./budgets/budgets.module"
+import { RequisitionsModule } from "./requisitions/requisitions.module"
 
 
 @Module({
@@ -39,6 +40,7 @@ import { BudgetsModule } from "./budgets/budgets.module"
     UsersModule,
     EmployeesModule,
     BudgetsModule,
+    RequisitionsModule,
   ],
   controllers: [AppController],
   providers: []
