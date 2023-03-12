@@ -1,1 +1,0 @@
-import{p as r}from"./layout.930594d2.js";var s={getAreas(){return r.get("/areas")},storeArea(e){return r.post("/areas",e)},updateArea(e,a){return r.put(`/areas/${e}`,a)},getDictionary(){return r.get("/areas/dictionary")}};export{s as A};
