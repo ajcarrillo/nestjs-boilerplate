@@ -12,5 +12,6 @@ import { Requisition } from "./entities/requisition.entity"
       Requisition,
     ]),
   ],
+  exports: [RequisitionsService],
 })
 export class RequisitionsModule {}

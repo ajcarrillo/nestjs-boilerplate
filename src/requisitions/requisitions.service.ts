@@ -59,4 +59,12 @@ export class RequisitionsService {
   remove(id: number) {
     return `This action removes a #${id} requisition`
   }
+
+  async updateFileName(id: string, filename: string) {
+    const requisition = await this.findOne(id)
+
+    requisition.file = filename
+
+    return this.requisitionRepository.save(requisition)
+  }
 }
