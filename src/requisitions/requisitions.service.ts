@@ -27,7 +27,7 @@ export class RequisitionsService {
   }
 
   findAll() {
-    return `This action returns all requisitions`
+    return this.requisitionRepository.find()
   }
 
   async findOne(id: string) {
