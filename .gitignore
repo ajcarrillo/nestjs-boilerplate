@@ -38,3 +38,4 @@ lerna-debug.log*
 /postgres/
 .idea/httpRequests
 .idea/httpRequests/*.http
+/.pnpm-store/

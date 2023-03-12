@@ -13,6 +13,7 @@ import { EmployeesModule } from "./employees/employees.module"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 import { BudgetsModule } from "./budgets/budgets.module"
 import { RequisitionsModule } from "./requisitions/requisitions.module"
+import { FilesModule } from "./files/files.module"
 
 
 @Module({
@@ -41,9 +42,9 @@ import { RequisitionsModule } from "./requisitions/requisitions.module"
     EmployeesModule,
     BudgetsModule,
     RequisitionsModule,
+    FilesModule,
   ],
   controllers: [AppController],
-  providers: []
 })
 export class AppModule {
 }
