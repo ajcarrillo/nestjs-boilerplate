@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common"
 import { AreasService } from "./areas.service"
 import { CreateAreaDto } from "./dto/create-area.dto"
 import { UpdateAreaDto } from "./dto/update-area.dto"
@@ -19,8 +19,8 @@ export class AreasController {
   }
 
   @Get("dictionary")
-  getDictionary() {
-    return this.areasService.getDictionary()
+  getDictionary(@Query("withFullName") withFullName = false) {
+    return this.areasService.getDictionary(withFullName)
   }
 
   @Get(":id")

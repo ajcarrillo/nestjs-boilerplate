@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Requisition } from "../../requisitions/entities/requisition.entity"
 
 @Entity("areas")
 export class Area {
@@ -17,4 +18,7 @@ export class Area {
     nullable: true,
   })
   clave_oficial: string
+
+  @OneToMany(() => Requisition, (requisition) => requisition.area)
+  requisitions: Requisition[];
 }

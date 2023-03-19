@@ -25,7 +25,7 @@ export class AreasService {
   }
 
   async findOne(id: string) {
-    return `This action returns a #${id} area`
+    return await this.areaRepository.findOneBy({id})
   }
 
   async update(id: string, updateAreaDto: UpdateAreaDto) {
@@ -47,7 +47,7 @@ export class AreasService {
     return `This action removes a #${id} area`
   }
 
-  async getDictionary() {
+  async getDictionary(withFullName = false) {
     const areas = await this.areaRepository.find({
       order: {
         alias: "ASC",
@@ -57,6 +57,7 @@ export class AreasService {
     return areas.map(area => ({
       value: area.id,
       label: area.alias,
+      ...(withFullName && { full_description: area.description })
     }))
   }
 }
