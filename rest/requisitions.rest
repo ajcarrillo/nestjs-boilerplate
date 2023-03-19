@@ -1,11 +1,25 @@
-GET {{api_url}}/api/requisitions/01943a81-f1b9-40d6-864d-068f90be52f6
+GET {{api_url}}/api/requisitions/8db49300-9b04-4572-afb3-477c7b89cae3
 ###
 
 POST {{api_url}}/api/requisitions
 Content-Type: application/json
 
 {
-  "requisition_number": "234",
+  "requisition_number": "088",
   "preparation_date": "2017-01-01",
-  "processing_date": "2017-01-01"
+  "processing_date": "2017-01-01",
+  "area_id": "5755c321-818a-4e2f-8e5c-f65f8706ec11",
+  "estimated_amount": 1000
+}
+###
+
+PUT {{api_url}}/api/requisitions/8db49300-9b04-4572-afb3-477c7b89cae3
+Content-Type: application/json
+
+{
+  "requisition_number": "099",
+  "preparation_date": "2017-01-01",
+  "processing_date": "2017-01-01",
+  "area_id": "5755c321-818a-4e2f-8e5c-f65f8706ec11",
+  "estimated_amount": 2000
 }
