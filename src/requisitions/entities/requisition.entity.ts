@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Area } from "../../employees/entities"
 
 @Entity("requisitions")
 export class Requisition {
@@ -11,7 +12,7 @@ export class Requisition {
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   estimated_amount: number
 
-  @Column("date",)
+  @Column("date")
   preparation_date: string
 
   @Column("date")
@@ -19,4 +20,8 @@ export class Requisition {
 
   @Column("varchar", { nullable: true })
   file: string
+
+  @ManyToOne(() => Area, (area) => area.requisitions, { nullable: true, eager: true })
+  @JoinColumn({ name: "area_id" })
+  area: Area
 }

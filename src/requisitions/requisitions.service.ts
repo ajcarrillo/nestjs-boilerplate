@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Requisition } from "./entities/requisition.entity"
 import { Repository } from "typeorm"
 import { isUUID } from "class-validator"
+import { AreasService } from "../employees/areas/areas.service"
 
 @Injectable()
 export class RequisitionsService {
@@ -11,17 +12,23 @@ export class RequisitionsService {
   constructor(
     @InjectRepository(Requisition)
     private readonly requisitionRepository: Repository<Requisition>,
+    private readonly areaService: AreasService,
   ) {
   }
 
   async create(createRequisitionDto: CreateRequisitionDto) {
     const existsNumberRequisition = await this.requisitionRepository.findOneBy({ requisition_number: createRequisitionDto.requisition_number })
+    const area = await this.areaService.findOne(createRequisitionDto.area_id)
 
     if (existsNumberRequisition) {
       throw new BadRequestException(`El número de requisición ${createRequisitionDto.requisition_number} ya existe`)
     }
 
-    const requisition = this.requisitionRepository.create(createRequisitionDto)
+    if(!area) {
+      throw new BadRequestException(`El área con el id ${createRequisitionDto.area_id} no existe`)
+    }
+
+    const requisition = this.requisitionRepository.create({ ...createRequisitionDto, area })
 
     return this.requisitionRepository.save(requisition)
   }
@@ -49,6 +56,16 @@ export class RequisitionsService {
   }
 
   async update(id: string, updateRequisitionDto: UpdateRequisitionDto) {
+    const { requisition_number } = updateRequisitionDto;
+
+    if (requisition_number) {
+      const isRequisitionNumberTaken = await this.isRequisitionNumberTaken(requisition_number, id);
+
+      if (isRequisitionNumberTaken) {
+        throw new BadRequestException('El número de requisición ya está en uso.');
+      }
+    }
+
     const requisition = await this.findOne(id)
 
     const requisitionUpdated = this.requisitionRepository.merge(requisition, updateRequisitionDto)
@@ -66,5 +83,15 @@ export class RequisitionsService {
     requisition.file = filename
 
     return this.requisitionRepository.save(requisition)
+  }
+
+  private async isRequisitionNumberTaken(requisition_number: string, excludedRequisitionId: string): Promise<boolean> {
+    const count = await this.requisitionRepository
+      .createQueryBuilder('requisition')
+      .where('requisition.requisition_number = :requisition_number', { requisition_number })
+      .andWhere('requisition.id != :excludedRequisitionId', { excludedRequisitionId })
+      .getCount();
+
+    return count > 0;
   }
 }
