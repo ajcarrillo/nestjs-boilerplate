@@ -12,10 +12,12 @@ import { ActionsService } from "./actions/actions.service"
 import { BudgetDetailsController } from "./budget-details/budget-details.controller"
 import { BudgetDetailsService } from "./budget-details/budget-details.service"
 import { BudgetDetailMonth } from "./entities/budget-detail-month.entity"
+import { BudgetDetailsMonthController } from "./budget-details/budget-details-month.controller"
+import { BudgetDetailsMonthService } from "./budget-details/budget-details-month.service"
 
 @Module({
-  controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController],
-  providers: [BudgetsService, ArticlesService, LinesService, ActionsService, BudgetDetailsService],
+  controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController, BudgetDetailsMonthController],
+  providers: [BudgetsService, ArticlesService, LinesService, ActionsService, BudgetDetailsService, BudgetDetailsMonthService],
   imports: [
     TypeOrmModule.forFeature([
       Action,
