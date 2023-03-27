@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Area } from "../../employees/entities"
+import { RequisitionDetail } from "./requisition-detail.entity"
 
 @Entity("requisitions")
 export class Requisition {
@@ -24,4 +25,7 @@ export class Requisition {
   @ManyToOne(() => Area, (area) => area.requisitions, { nullable: true, eager: true })
   @JoinColumn({ name: "area_id" })
   area: Area
+
+  @OneToMany(() => RequisitionDetail, (requisitionDetail) => requisitionDetail.requisition)
+  details: RequisitionDetail[];
 }

@@ -43,7 +43,11 @@ export class RequisitionsService {
     if (isUUID(id)) {
       requisition = await this.requisitionRepository.findOneBy({ id })
     } else {
-      requisition = await this.requisitionRepository.findOneBy({ requisition_number: id })
+      requisition = await this.requisitionRepository
+        .findOne({
+          where: { requisition_number: id },
+          relations: ['details', 'details.budgetDetail']
+        })
     }
 
     if (!requisition) {

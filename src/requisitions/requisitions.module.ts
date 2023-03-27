@@ -2,17 +2,22 @@ import { Module } from "@nestjs/common"
 import { RequisitionsService } from "./requisitions.service"
 import { RequisitionsController } from "./requisitions.controller"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { Requisition } from "./entities/requisition.entity"
+import { Requisition, RequisitionDetail } from "./entities"
 import { EmployeesModule } from "../employees/employees.module"
+import { RequisitionDetailsController } from "./requisition-detail/requisition-details.controller"
+import { RequisitionDetailsService } from "./requisition-detail/requisition-details.service"
+import { BudgetsModule } from "../budgets/budgets.module"
 
 @Module({
-  controllers: [RequisitionsController],
-  providers: [RequisitionsService],
+  controllers: [RequisitionsController, RequisitionDetailsController],
+  providers: [RequisitionsService, RequisitionDetailsService],
   imports: [
     TypeOrmModule.forFeature([
       Requisition,
+      RequisitionDetail
     ]),
-    EmployeesModule
+    EmployeesModule,
+    BudgetsModule
   ],
   exports: [RequisitionsService],
 })
