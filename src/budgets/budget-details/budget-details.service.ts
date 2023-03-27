@@ -51,7 +51,7 @@ export class BudgetDetailsService {
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} budgetDetail`;
+    return await this.budgetDetailRepository.findOneBy({ id })
   }
 
   async update(id: number, updateBudgetDetailDto: UpdateBudgetDetailDto) {

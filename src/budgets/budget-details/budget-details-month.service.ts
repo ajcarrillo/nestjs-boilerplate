@@ -25,7 +25,7 @@ export class BudgetDetailsMonthService {
       .getMany()
 
     items = budgetDetailMonth.map(({
-                                     budget_detail: { department, article, estimated_amount, total },
+                                     budget_detail: { department, article, estimated_amount, total, id, budget_id },
                                      month,
                                      quantity
                                    }) => ({
@@ -35,7 +35,9 @@ export class BudgetDetailsMonthService {
       quantity,
       article_description: article?.description,
       estimated_amount,
-      total
+      total,
+      id,
+      budget_id
     }));
 
     return items

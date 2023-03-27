@@ -5,6 +5,7 @@ import { Line } from "./line.entity"
 import { Area } from "../../employees/entities"
 import { Article } from "./article.entity"
 import { BudgetDetailMonth } from "./budget-detail-month.entity"
+import { RequisitionDetail } from "../../requisitions/entities"
 
 
 @Entity("budget_details")
@@ -57,4 +58,7 @@ export class BudgetDetail {
     {cascade: true, eager:true}
   )
   months: BudgetDetailMonth[]
+
+  @OneToMany(() => RequisitionDetail, (requisitionDetail) => requisitionDetail.budgetDetail)
+  details: RequisitionDetail[];
 }
