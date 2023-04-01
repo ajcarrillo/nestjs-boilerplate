@@ -14,6 +14,8 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 import { BudgetsModule } from "./budgets/budgets.module"
 import { RequisitionsModule } from "./requisitions/requisitions.module"
 import { FilesModule } from "./files/files.module"
+import { CommonModule } from "./common/common.module"
+import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
 
 
 @Module({
@@ -43,6 +45,8 @@ import { FilesModule } from "./files/files.module"
     BudgetsModule,
     RequisitionsModule,
     FilesModule,
+    CommonModule,
+    PurchaseOrdersModule,
   ],
   controllers: [AppController],
 })

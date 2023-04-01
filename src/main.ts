@@ -2,6 +2,7 @@ import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
 import { Logger, ValidationPipe } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
+import { useContainer } from "class-validator"
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,7 +12,10 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
-    forbidNonWhitelisted: true
+    forbidNonWhitelisted: true,
+    transform: true,
+    forbidUnknownValues: true,
+    validationError: { target: false }
   }));
 
   const config = new DocumentBuilder()
@@ -24,6 +28,8 @@ async function bootstrap() {
   SwaggerModule.setup("api", app, document)
 
   app.enableCors()
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(process.env.PORT)
   logger.log(`Application is running on: ${process.env.PORT}`)
