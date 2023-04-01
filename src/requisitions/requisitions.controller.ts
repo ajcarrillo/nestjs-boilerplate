@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common"
 import { RequisitionsService } from "./requisitions.service"
 import { CreateRequisitionDto, UpdateRequisitionDto } from "./dto"
+import { PaginateCollectionDto } from "../common/dto"
 
 @Controller('requisitions')
 export class RequisitionsController {
@@ -14,6 +15,11 @@ export class RequisitionsController {
   @Get()
   findAll() {
     return this.requisitionsService.findAll();
+  }
+
+  @Get('dictionary')
+  getDictionary(@Query() params: PaginateCollectionDto) {
+    return this.requisitionsService.getDictionary(params);
   }
 
   @Get(':id')
