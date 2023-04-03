@@ -14,6 +14,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 import { BudgetsModule } from "./budgets/budgets.module"
 import { RequisitionsModule } from "./requisitions/requisitions.module"
 import { FilesModule } from "./files/files.module"
+import { PaymentOrdersModule } from "./payment-orders/payment-orders.module"
 import { CommonModule } from "./common/common.module"
 import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
 
@@ -45,6 +46,7 @@ import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
     BudgetsModule,
     RequisitionsModule,
     FilesModule,
+    PaymentOrdersModule,
     CommonModule,
     PurchaseOrdersModule,
   ],
