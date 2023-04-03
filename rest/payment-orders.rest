@@ -1,0 +1,83 @@
+GET {{api_url}}/api/payment-orders
+Authorization: Bearer {{ auth_token }}
+
+###
+POST {{api_url}}/api/payment-orders
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "purchase_order_id": "5541c97e-cd23-4416-87c8-fdca40781753",
+  "payment_number": "001",
+  "amount": "255.95",
+  "payment_date": "2023-01-01"
+}
+
+###
+POST {{api_url}}/api/payment-orders
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer {{ auth_token }}
+
+--WebAppBoundary
+Content-Disposition: form-data; name="purchase_order_id"
+
+3f670b6c-ff8a-4b1a-b466-45d363cd5d95
+
+--WebAppBoundary
+Content-Disposition: form-data; name="payment_number"
+
+321
+
+--WebAppBoundary
+Content-Disposition: form-data; name="amount"
+
+10
+
+--WebAppBoundary
+Content-Disposition: form-data; name="payment_date"
+
+2023-04-02
+
+--WebAppBoundary
+Content-Disposition: form-data; name="payment_file"; filename="ingeniera_de_software.pdf"
+Content-Type: application/pdf
+
+< ./ingeniera_de_software.pdf
+--WebAppBoundary--
+
+###
+PATCH {{api_url}}/api/payment-orders/0149a754-3e63-4666-b140-2c45d9b9f000
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer {{ auth_token }}
+
+--WebAppBoundary
+Content-Disposition: form-data; name="purchase_order_id"
+
+3f670b6c-ff8a-4b1a-b466-45d363cd5d95
+
+--WebAppBoundary
+Content-Disposition: form-data; name="payment_number"
+
+321
+
+--WebAppBoundary
+Content-Disposition: form-data; name="amount"
+
+10.00
+
+--WebAppBoundary
+Content-Disposition: form-data; name="payment_date"
+
+2023-04-02
+
+--WebAppBoundary
+Content-Disposition: form-data; name="check_number"
+
+325
+
+--WebAppBoundary
+Content-Disposition: form-data; name="check_file"; filename="ingeniera_de_software.pdf"
+Content-Type: application/pdf
+
+< ./ingeniera_de_software.pdf
+--WebAppBoundary--

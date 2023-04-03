@@ -1,3 +1,9 @@
+GET {{api_url}}/api/requisitions
+###
+
+GET {{api_url}}/api/requisitions/dictionary
+###
+
 GET {{api_url}}/api/requisitions/8db49300-9b04-4572-afb3-477c7b89cae3
 ###
 

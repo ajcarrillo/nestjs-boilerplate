@@ -1,0 +1,25 @@
+GET {{api_url}}/api/purchase-orders
+Authorization: Bearer {{ auth_token }}
+
+###
+POST {{api_url}}/api/purchase-orders
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "requisition_id": "f2d72dea-6d22-405b-94b5-41678b734c92",
+  "order_number": "002",
+  "reception_date": "2023-01-01",
+  "is_submitted_to_finance": true
+}
+
+###
+PATCH {{api_url}}/api/purchase-orders/e9a08351-1c9a-43f9-9057-3083f67db780
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "requisition_id": "dab1fecb-78ae-4b08-91c3-4028313ef2b7",
+  "order_number": "001",
+  "reception_date": "2023-02-02"
+}
