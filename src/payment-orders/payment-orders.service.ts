@@ -26,6 +26,7 @@ export class PaymentOrdersService {
       check_file,
       check_number,
       purchase_order_id,
+      is_submitted_to_finance
     } = createPaymentOrderDto
 
     const purchaseOrder = await this.purchaseOrderService.findOne(purchase_order_id)
@@ -35,7 +36,8 @@ export class PaymentOrdersService {
       amount,
       payment_number,
       purchaseOrder,
-      check_number
+      check_number,
+      is_submitted_to_finance
     })
 
     try {
@@ -76,6 +78,7 @@ export class PaymentOrdersService {
       check_file,
       check_number,
       purchase_order_id,
+      is_submitted_to_finance
     } = updatePaymentOrderDto
 
     const purchaseOrder = await this.purchaseOrderService.findOne(purchase_order_id)
@@ -87,6 +90,7 @@ export class PaymentOrdersService {
       amount,
       payment_date,
       check_number,
+      is_submitted_to_finance
     })
 
     if (!paymentOrderToUpdate) {

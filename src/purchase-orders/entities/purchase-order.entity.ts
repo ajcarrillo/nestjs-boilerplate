@@ -22,7 +22,4 @@ export class PurchaseOrder extends BaseEntity {
 
   @Column("varchar", { nullable: true })
   file: string
-
-  @Column("boolean", { default: false })
-  is_submitted_to_finance: boolean
 }

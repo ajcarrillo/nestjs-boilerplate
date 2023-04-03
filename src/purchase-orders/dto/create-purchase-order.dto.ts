@@ -1,5 +1,5 @@
 import { IsRequisitionIdExist } from "../../common/validators/IsRequsitionExists"
-import { IsBoolean, IsDateString, IsNotEmpty, IsOptional, IsUUID } from "class-validator"
+import { IsDateString, IsNotEmpty, IsUUID } from "class-validator"
 
 export class CreatePurchaseOrderDto {
   @IsRequisitionIdExist({
@@ -15,8 +15,4 @@ export class CreatePurchaseOrderDto {
   @IsDateString()
   @IsNotEmpty()
   reception_date: string;
-
-  @IsOptional()
-  @IsBoolean()
-  is_submitted_to_finance: boolean;
 }

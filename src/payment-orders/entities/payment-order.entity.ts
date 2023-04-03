@@ -28,4 +28,7 @@ export class PaymentOrder extends BaseEntity {
 
   @Column("varchar", { nullable: true })
   check_number: string
+
+  @Column("boolean", { default: false })
+  is_submitted_to_finance: boolean
 }

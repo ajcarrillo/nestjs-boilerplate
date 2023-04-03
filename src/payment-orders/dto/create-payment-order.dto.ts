@@ -27,4 +27,8 @@ export class CreatePaymentOrderDto {
   @IsOptional()
   @IsString()
   check_number?: string
+
+  @IsOptional()
+  @IsString()
+  is_submitted_to_finance: boolean;
 }
