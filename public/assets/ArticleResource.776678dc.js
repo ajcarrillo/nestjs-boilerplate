@@ -1,0 +1,1 @@
+import{p as r}from"./layout.e5b39b81.js";var a={getArticles(){return r.get("/articles")},storeArticle(t){return r.post("/articles",t)},updateArticle(t,e){return r.put(`/articles/${t}`,e)},getDictionary(){return r.get("/articles/dictionary")}};export{a as A};
