@@ -73,4 +73,15 @@ export class FilesController {
 
     return res.json({ "file_name": Key  })
   }
+
+  @Get("payment-orders/:id/:filename")
+  async getPaymentOderFile(
+    @Res() res: Response,
+    @Param("id") id: string,
+    @Param("filename") filename: string,
+  ) {
+    const stream = await this.s3Service.s3_getFile(filename)
+
+    return stream.pipe(res)
+  }
 }

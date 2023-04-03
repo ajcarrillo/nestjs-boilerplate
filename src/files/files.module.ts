@@ -9,6 +9,7 @@ import { PurchaseOrdersModule } from "../purchase-orders/purchase-orders.module"
 @Module({
   controllers: [FilesController],
   providers: [FilesService, S3Service],
-  imports: [ConfigModule, RequisitionsModule, PurchaseOrdersModule]
+  imports: [ConfigModule, RequisitionsModule, PurchaseOrdersModule],
+  exports: [S3Service],
 })
 export class FilesModule {}
