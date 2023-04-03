@@ -69,4 +69,13 @@ export class PurchaseOrdersService {
 
     return this.purchaseOrderRepository.save(purchaseOrder)
   }
+
+  async getDictionary() {
+    const purchaseOrders = await this.purchaseOrderRepository.find()
+
+    return purchaseOrders.map(purchaseOrder => ({
+      value: purchaseOrder.id,
+      label: purchaseOrder.order_number,
+    }))
+  }
 }

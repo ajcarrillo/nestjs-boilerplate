@@ -22,6 +22,11 @@ export class PurchaseOrdersController {
     return this.purchaseOrdersService.findAll();
   }
 
+  @Get('dictionary')
+  getDictionary() {
+    return this.purchaseOrdersService.getDictionary()
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.purchaseOrdersService.findOne(id);
