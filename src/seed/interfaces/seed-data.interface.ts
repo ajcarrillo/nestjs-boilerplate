@@ -7,4 +7,5 @@ export interface SeedData {
   lines: any[],
   articles: Article[],
   areas: any[],
+  subBudgets: any[],
 }
