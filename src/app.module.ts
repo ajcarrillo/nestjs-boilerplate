@@ -17,6 +17,7 @@ import { FilesModule } from "./files/files.module"
 import { PaymentOrdersModule } from "./payment-orders/payment-orders.module"
 import { CommonModule } from "./common/common.module"
 import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
+import { SubBudgetsModule } from "./sub-budgets/sub-budgets.module"
 
 
 @Module({
@@ -49,6 +50,7 @@ import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
     PaymentOrdersModule,
     CommonModule,
     PurchaseOrdersModule,
+    SubBudgetsModule,
   ],
   controllers: [AppController],
 })
