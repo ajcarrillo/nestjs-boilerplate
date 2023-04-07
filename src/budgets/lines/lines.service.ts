@@ -22,8 +22,8 @@ export class LinesService {
     return await this.lineRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} line`
+  async findOne(id: number) {
+    return await this.lineRepository.findOneBy({ id })
   }
 
   async update(id: number, updateLineDto: UpdateLineDto) {

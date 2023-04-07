@@ -28,7 +28,7 @@ import { BudgetDetailsMonthService } from "./budget-details/budget-details-month
       BudgetDetailMonth
     ]),
   ],
-  exports: [TypeOrmModule, BudgetDetailsService]
+  exports: [TypeOrmModule, BudgetDetailsService, ActionsService, LinesService]
 })
 export class BudgetsModule {
 }

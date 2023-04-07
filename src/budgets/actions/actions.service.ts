@@ -22,8 +22,8 @@ export class ActionsService {
     return this.actionRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} action`;
+  async findOne(id: number) {
+    return await this.actionRepository.findOneBy({ id })
   }
 
   async update(id: number, updateActionDto: UpdateActionDto) {
