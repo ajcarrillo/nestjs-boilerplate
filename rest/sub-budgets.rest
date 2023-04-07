@@ -1,0 +1,39 @@
+GET {{api_url}}/api/sub-budgets
+Authorization: Bearer {{ auth_token }}
+
+###
+
+POST http://localhost:3000/api/sub-budgets
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "action_id": 1,
+  "line_id": 1,
+  "department_id":  "06695acb-6247-478d-b98f-7620bd027bba",
+  "benefited_population": "300",
+  "objective":  "Que los docentes del Área Académica de Sistemas y Computación expongan sus trabajos de investigación y desarrollo tecnológico, dando a conocer el alcance y los resultados obtenidos en sus proyectos.",
+  "cost_per_participant": 6000,
+  "number_participants":  1,
+  "event": "Pago para participación en congresos de divulgación científica y tecnológica.",
+  "event_venue":  "Por definir",
+  "justification": "Implementar acciones para la mejora de los indicadores de capacidad y competitividad académica de los programas de estudios del Área Académica de Sistemas y Computación, en donde los maestros participarán en la presentación de sus trabajos de investigación y desarrollo tecnológico en los congresos nacionales con temáticas de TICs.",
+  "start_date":  "2023-01-01",
+  "end_date": "2023-01-01",
+  "amount":  6000,
+  "vat_breakdown": false,
+  "risk":  "La falta de espacios para que los profesores presenten los resultados de sus investigaciones en los foros externos nacionales con lo que disminuirá la posibilidad de intercambios de ideas y conocer las tendencias de investigación y el establecimiento de lazos de cooperación académica."
+}
+
+###
+
+POST http://localhost:3000/api/sub-budget-adjustment
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "source_sub_budget_id":  "e4b60805-346c-4b23-8060-44cd179c5827",
+  "target_sub_budget_id": "326affb1-af3d-40f2-8ff8-a31539a7fb01",
+  "justification":  "Lorem",
+  "amount": 1500
+}
