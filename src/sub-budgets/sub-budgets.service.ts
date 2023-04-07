@@ -48,7 +48,7 @@ export class SubBudgetsService {
     return await this.subBudgetsRepository.findOneBy({ id })
   }
 
-  async update(id: string, updateSubBudgetDto: UpdateSubBudgetDto) {
+  async update(id: string, updateSubBudgetDto: UpdateSubBudgetDto, user: User) {
     const { ...subBudget } = updateSubBudgetDto
     const { action_id, line_id, department_id } = updateSubBudgetDto
     const { action, line, department } = await this.findResources(action_id, line_id, department_id)
@@ -58,7 +58,8 @@ export class SubBudgetsService {
       ...subBudget,
       action,
       line,
-      department
+      department,
+      updatedBy: user.id,
     })
 
     if (!subBudgetToUpdate) {

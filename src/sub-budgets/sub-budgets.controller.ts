@@ -28,8 +28,12 @@ export class SubBudgetsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubBudgetDto: UpdateSubBudgetDto) {
-    return this.subBudgetsService.update(id, updateSubBudgetDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateSubBudgetDto: UpdateSubBudgetDto,
+    @GetUser() user: User
+  ) {
+    return this.subBudgetsService.update(id, updateSubBudgetDto, user);
   }
 
   @Delete(':id')
