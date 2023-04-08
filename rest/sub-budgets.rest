@@ -32,8 +32,8 @@ Content-Type: application/json
 Authorization: Bearer {{ auth_token }}
 
 {
-  "source_sub_budget_id":  "e4b60805-346c-4b23-8060-44cd179c5827",
-  "target_sub_budget_id": "326affb1-af3d-40f2-8ff8-a31539a7fb01",
-  "justification":  "Lorem",
-  "amount": 1500
+  "source_sub_budget_id": "06983473-528c-4fe0-bd5f-b5d23253ab2f",
+  "target_sub_budget_id": "d08d1f39-1ca9-44b4-a106-2c4ea420618c",
+  "justification": "Por que si",
+  "amount": 300000
 }
