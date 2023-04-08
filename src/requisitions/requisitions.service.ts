@@ -75,11 +75,28 @@ export class RequisitionsService {
       }
     }
 
-    const requisition = await this.findOne(id)
+    let area;
+    const {area_id} = updateRequisitionDto
 
-    const requisitionUpdated = this.requisitionRepository.merge(requisition, updateRequisitionDto)
+    if (area_id) {
+      area = await this.areaService.findOne(area_id)
 
-    return this.requisitionRepository.save(requisitionUpdated)
+      if (!area) {
+        throw new BadRequestException(`El área con el id ${area_id} no existe`)
+      }
+    }
+
+    const requisitionToUpdate = await this.requisitionRepository.preload({
+      id,
+      ...updateRequisitionDto,
+      area
+    })
+
+    if (!requisitionToUpdate) {
+      throw new NotFoundException(`La requisición con el id ${id} no existe`)
+    }
+
+    return this.requisitionRepository.save(requisitionToUpdate)
   }
 
   remove(id: number) {
