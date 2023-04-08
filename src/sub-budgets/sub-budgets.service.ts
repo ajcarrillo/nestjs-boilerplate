@@ -40,7 +40,14 @@ export class SubBudgetsService {
 
   async findAll() {
     return await this.subBudgetsRepository.find({
-      relations: ["adjustmentsFrom", "adjustmentsTo"],
+      relations: [
+        "adjustmentsFrom",
+        "adjustmentsTo",
+        "adjustmentsFrom.targetSubBudget",
+        "adjustmentsFrom.sourceSubBudget",
+        "adjustmentsTo.targetSubBudget",
+        "adjustmentsTo.sourceSubBudget"
+      ],
     })
   }
 
