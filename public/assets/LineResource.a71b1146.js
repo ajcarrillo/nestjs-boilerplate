@@ -1,0 +1,1 @@
+import{p as e}from"./layout.0b44b01f.js";var i={getLines(){return e.get("/lines")},storeLine(n){return e.post("/lines",n)},updateLine(n,r){return e.put(`/lines/${n}`,r)},getDictionary(){return e.get("/lines/dictionary")}};export{i as L};
