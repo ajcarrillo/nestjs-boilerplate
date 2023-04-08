@@ -1,4 +1,10 @@
-import { PartialType } from "@nestjs/swagger"
-import { CreateBudgetDetailDto } from "./create-budget-detail.dto"
+import { IsNumber } from "class-validator"
 
-export class UpdateBudgetDetailDto extends PartialType(CreateBudgetDetailDto) {}
+
+export class UpdateBudgetDetailDto {
+  @IsNumber()
+  estimated_amount: number
+
+  @IsNumber()
+  total: number
+}

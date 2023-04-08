@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 import { CreateBudgetDetailDto, UpdateBudgetDetailDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { BudgetDetail } from "../entities"
@@ -55,19 +55,16 @@ export class BudgetDetailsService {
   }
 
   async update(id: number, updateBudgetDetailDto: UpdateBudgetDetailDto) {
-    return `This action update a #${id} budgetDetail`;
-    // const { ...budgetDetail } = updateBudgetDetailDto
-    //
-    // const budgetDetailToUpdate = await this.budgetDetailRepository.preload({
-    //   id,
-    //   ...budgetDetail,
-    // })
-    //
-    // if (!budgetDetailToUpdate) {
-    //   throw new NotFoundException(`El detalle de presupuesto con el id ${id} no existe`)
-    // }
-    //
-    // return await this.budgetDetailRepository.save(budgetDetailToUpdate)
+    const itemToUpdate = await this.budgetDetailRepository.preload({
+      id,
+      ...updateBudgetDetailDto
+    })
+
+    if (!itemToUpdate) {
+      throw new NotFoundException(`El sub presupuesto con el id ${id} no existe`)
+    }
+
+    return await this.budgetDetailRepository.save(itemToUpdate)
   }
 
   async remove(id: number) {
