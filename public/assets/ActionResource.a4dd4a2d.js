@@ -1,0 +1,1 @@
+import{p as t}from"./layout.e94e56b8.js";var i={getActions(){return t.get("/actions")},storeAction(o){return t.post("/actions",o)},updateAction(o,n){return t.put(`/actions/${o}`,n)},getDictionary(){return t.get("/actions/dictionary")}};export{i as A};
