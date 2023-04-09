@@ -14,6 +14,7 @@ import { BudgetDetailsService } from "./budget-details/budget-details.service"
 import { BudgetDetailMonth } from "./entities/budget-detail-month.entity"
 import { BudgetDetailsMonthController } from "./budget-details/budget-details-month.controller"
 import { BudgetDetailsMonthService } from "./budget-details/budget-details-month.service"
+import { AuthModule } from "../auth/auth.module"
 
 @Module({
   controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController, BudgetDetailsMonthController],
@@ -27,6 +28,7 @@ import { BudgetDetailsMonthService } from "./budget-details/budget-details-month
       Line,
       BudgetDetailMonth
     ]),
+    AuthModule
   ],
   exports: [TypeOrmModule, BudgetDetailsService, ActionsService, LinesService]
 })

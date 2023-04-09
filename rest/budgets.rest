@@ -1,8 +1,10 @@
 GET http://localhost:3000/api/budgets
+Authorization: Bearer {{ auth_token }}
 
 ###
 
 GET http://localhost:3000/api/budgets/b2745dda-721a-4eb0-8e26-3f1f6f8336de/
+Authorization: Bearer {{ auth_token }}
 
 ###
 

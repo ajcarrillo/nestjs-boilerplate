@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { RequisitionsService } from "./requisitions.service"
 import { CreateRequisitionDto, UpdateRequisitionDto } from "./dto"
 import { PaginateCollectionDto } from "../common/dto"
+import { Auth } from "../auth/decorators"
 
 @Controller('requisitions')
+@Auth()
 export class RequisitionsController {
   constructor(private readonly requisitionsService: RequisitionsService) {}
 

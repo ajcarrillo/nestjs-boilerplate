@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/commo
 import { BudgetsService } from "./budgets.service"
 import { CreateBudgetDto } from "./dto/create-budget.dto"
 import { UpdateBudgetDto } from "./dto/update-budget.dto"
+import { Auth } from "../auth/decorators"
 
 @Controller("budgets")
+@Auth()
 export class BudgetsController {
   constructor(private readonly budgetsService: BudgetsService) {
   }

@@ -7,6 +7,7 @@ import { EmployeesModule } from "../employees/employees.module"
 import { RequisitionDetailsController } from "./requisition-detail/requisition-details.controller"
 import { RequisitionDetailsService } from "./requisition-detail/requisition-details.service"
 import { BudgetsModule } from "../budgets/budgets.module"
+import { AuthModule } from "../auth/auth.module"
 
 @Module({
   controllers: [RequisitionsController, RequisitionDetailsController],
@@ -17,7 +18,8 @@ import { BudgetsModule } from "../budgets/budgets.module"
       RequisitionDetail
     ]),
     EmployeesModule,
-    BudgetsModule
+    BudgetsModule,
+    AuthModule
   ],
   exports: [RequisitionsService],
 })
