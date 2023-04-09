@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Param, Post } from "@nestjs/common"
 import { RequisitionDetailsService } from "./requisition-details.service"
 import { CreateRequisitionDetailDto } from "./dto"
 
@@ -14,5 +14,10 @@ export class RequisitionDetailsController {
     @Body() createRequisitionDetailDto: CreateRequisitionDetailDto
   ) {
     return this.requisitionDetailsService.create(requisitionId, createRequisitionDetailDto)
+  }
+
+  @Delete(":id")
+  remove(@Param("id") id: string) {
+    return this.requisitionDetailsService.remove(id)
   }
 }

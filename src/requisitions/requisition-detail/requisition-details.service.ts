@@ -37,4 +37,8 @@ export class RequisitionDetailsService {
   async findOne(id: string) {
     return await this.requisitionDetailRepository.findOneBy({ id })
   }
+
+  async remove(id: string) {
+    return await this.requisitionDetailRepository.delete(id)
+  }
 }
