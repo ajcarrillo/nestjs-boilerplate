@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 import { Action, Line } from "../../budgets/entities"
 import { Area } from "../../employees/entities"
 import { SubBudgetAdjustment } from "./sub-budget-adjustment.entity"
+import { RequisitionSubBudget } from "./requisition-sub-budget.entity"
 
 @Entity("sub_budgets")
 export class SubBudget extends BaseEntity {
@@ -55,12 +56,18 @@ export class SubBudget extends BaseEntity {
   risk: string
 
   @OneToMany(() => SubBudgetAdjustment,
-    (adjustment) => adjustment.sourceSubBudget
+    (adjustment) => adjustment.sourceSubBudget,
   )
   adjustmentsFrom: SubBudgetAdjustment[]
 
   @OneToMany(() => SubBudgetAdjustment,
-    (adjustment) => adjustment.targetSubBudget
+    (adjustment) => adjustment.targetSubBudget,
   )
   adjustmentsTo: SubBudgetAdjustment[]
+
+  @OneToMany(() => RequisitionSubBudget, (requisitionSubBudget) => requisitionSubBudget.subBudget, {
+    nullable: true,
+    eager: true,
+  })
+  requisitions: RequisitionSubBudget[]
 }

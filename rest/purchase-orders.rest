@@ -9,8 +9,22 @@ Authorization: Bearer {{ auth_token }}
 {
   "requisition_id": "f2d72dea-6d22-405b-94b5-41678b734c92",
   "order_number": "002",
-  "reception_date": "2023-01-01",
-  "is_submitted_to_finance": true
+  "reception_date": "2023-01-01"
+}
+
+###
+GET {{api_url}}/api/purchase-orders/requisition-sub-budget
+Authorization: Bearer {{ auth_token }}
+
+###
+POST {{api_url}}/api/purchase-orders/requisition-sub-budget
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "requisition_id": "341df85f-396c-4f21-94ba-c9772bbc6080",
+  "order_number": "999",
+  "reception_date": "2023-01-01"
 }
 
 ###

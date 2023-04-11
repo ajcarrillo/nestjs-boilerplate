@@ -1,10 +1,14 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { PurchaseOrder } from "./entities"
 import { Repository } from "typeorm"
 import { RequisitionsService } from "../requisitions/requisitions.service"
 import { User } from "../auth/entities"
+import { RequisitionSubBudgetService } from "../sub-budgets/requsitions/requisition-sub-budget.service"
+import { Requisition } from "../requisitions/entities"
+import { RequisitionSubBudget } from "../sub-budgets/entities/requisition-sub-budget.entity"
+import { formatDate } from "../utils/date-utils"
 
 @Injectable()
 export class PurchaseOrdersService {
@@ -12,26 +16,94 @@ export class PurchaseOrdersService {
     @InjectRepository(PurchaseOrder)
     private readonly purchaseOrderRepository: Repository<PurchaseOrder>,
     private readonly requisitionService: RequisitionsService,
+    private readonly requisitionSubBudgetService: RequisitionSubBudgetService,
   ) {
   }
 
   async create(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User) {
     const requisition = await this.requisitionService.findOne(createPurchaseOrderDto.requisition_id)
+
+    if (!requisition) {
+      throw new NotFoundException(`The requisition with id ${createPurchaseOrderDto.requisition_id} does not exist`)
+    }
+
     const purchaseOrder = this.purchaseOrderRepository.create({
       ...createPurchaseOrderDto,
-      requisition,
+      requisitionType: "RequisitionEntity",
       createdBy: user.id,
     })
 
     return this.purchaseOrderRepository.save(purchaseOrder)
   }
 
-  findAll() {
-    return this.purchaseOrderRepository.find({
-      relations: {
-        requisition: true
-      }
+  async createPurchaseOrderRequisitionSubBudget(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User) {
+    const requisition = await this.requisitionSubBudgetService.findOne(createPurchaseOrderDto.requisition_id)
+
+    if (!requisition) {
+      throw new NotFoundException(`The requisition with id ${createPurchaseOrderDto.requisition_id} does not exist`)
+    }
+
+    const purchaseOrder = this.purchaseOrderRepository.create({
+      ...createPurchaseOrderDto,
+      requisitionType: "RequisitionSubBudgetEntity",
+      createdBy: user.id,
     })
+
+    return this.purchaseOrderRepository.save(purchaseOrder)
+  }
+
+  async findAll() {
+    const rawResult = await this.purchaseOrderRepository
+      .createQueryBuilder("purchase_order")
+      .addSelect("r.*")
+      .innerJoin(Requisition, "r", "purchase_order.requisition_id = r.id AND purchase_order.requisitionType = :requisitionType1", {
+        requisitionType1: "RequisitionEntity",
+      })
+      .getRawMany()
+
+    return rawResult.map(row => ({
+      id: row.purchase_order_id,
+      order_number: row.purchase_order_order_number,
+      reception_date: formatDate(row.purchase_order_reception_date),
+      file: row.purchase_order_file,
+      requisition_type: row.purchase_order_requisition_type,
+      requisition: {
+        id: row.id,
+        requisition_number: row.requisition_number,
+        estimated_amount: row.estimated_amount,
+        preparation_date: formatDate(row.preparation_date),
+        processing_date: formatDate(row.processing_date),
+        file: row.file,
+        area_id: row.area_id,
+      },
+    }))
+  }
+
+  async findAllWithRequisitionSubBudget() {
+    const rawResult = await this.purchaseOrderRepository
+      .createQueryBuilder("purchase_order")
+      .addSelect("r.*")
+      .innerJoin(RequisitionSubBudget, "r", "purchase_order.requisition_id = r.id AND purchase_order.requisitionType = :requisitionType1", {
+        requisitionType1: "RequisitionSubBudgetEntity",
+      })
+      .getRawMany()
+
+    return rawResult.map(row => ({
+      id: row.purchase_order_id,
+      order_number: row.purchase_order_order_number,
+      reception_date: formatDate(row.purchase_order_reception_date),
+      file: row.purchase_order_file,
+      requisition_type: row.purchase_order_requisition_type,
+      requisition: {
+        id: row.id,
+        requisition_number: row.requisition_number,
+        estimated_amount: row.estimated_amount,
+        preparation_date: formatDate(row.preparation_date),
+        processing_date: formatDate(row.processing_date),
+        file: row.file,
+        area_id: row.area_id,
+      },
+    }))
   }
 
   async findOne(id: string) {
@@ -47,7 +119,7 @@ export class PurchaseOrdersService {
       ...purchaseOrder,
     })
 
-    if(!purchaseOrderToUpdate) {
+    if (!purchaseOrderToUpdate) {
       throw new BadRequestException(`The purchase order with id ${id} does not exist`)
     }
 
@@ -55,13 +127,13 @@ export class PurchaseOrdersService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} purchaseOrder`;
+    return `This action removes a #${id} purchaseOrder`
   }
 
   async updateFileName(id: string, fileName: string) {
     const purchaseOrder = await this.findOne(id)
 
-    if(!purchaseOrder) {
+    if (!purchaseOrder) {
       throw new BadRequestException(`The purchase order with id ${id} does not exist`)
     }
 

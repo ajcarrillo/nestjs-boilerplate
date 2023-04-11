@@ -10,19 +10,19 @@ Authorization: Bearer {{ auth_token }}
 {
   "action_id": 1,
   "line_id": 1,
-  "department_id":  "06695acb-6247-478d-b98f-7620bd027bba",
+  "department_id": "06695acb-6247-478d-b98f-7620bd027bba",
   "benefited_population": "300",
-  "objective":  "Que los docentes del Área Académica de Sistemas y Computación expongan sus trabajos de investigación y desarrollo tecnológico, dando a conocer el alcance y los resultados obtenidos en sus proyectos.",
+  "objective": "Que los docentes del Área Académica de Sistemas y Computación expongan sus trabajos de investigación y desarrollo tecnológico, dando a conocer el alcance y los resultados obtenidos en sus proyectos.",
   "cost_per_participant": 6000,
-  "number_participants":  1,
+  "number_participants": 1,
   "event": "Pago para participación en congresos de divulgación científica y tecnológica.",
-  "event_venue":  "Por definir",
+  "event_venue": "Por definir",
   "justification": "Implementar acciones para la mejora de los indicadores de capacidad y competitividad académica de los programas de estudios del Área Académica de Sistemas y Computación, en donde los maestros participarán en la presentación de sus trabajos de investigación y desarrollo tecnológico en los congresos nacionales con temáticas de TICs.",
-  "start_date":  "2023-01-01",
+  "start_date": "2023-01-01",
   "end_date": "2023-01-01",
-  "amount":  6000,
+  "amount": 6000,
   "vat_breakdown": false,
-  "risk":  "La falta de espacios para que los profesores presenten los resultados de sus investigaciones en los foros externos nacionales con lo que disminuirá la posibilidad de intercambios de ideas y conocer las tendencias de investigación y el establecimiento de lazos de cooperación académica."
+  "risk": "La falta de espacios para que los profesores presenten los resultados de sus investigaciones en los foros externos nacionales con lo que disminuirá la posibilidad de intercambios de ideas y conocer las tendencias de investigación y el establecimiento de lazos de cooperación académica."
 }
 
 ###
@@ -37,3 +37,24 @@ Authorization: Bearer {{ auth_token }}
   "justification": "Por que si",
   "amount": 300000
 }
+
+###
+
+POST {{api_url}}/api/sub-budgets/02697ebf-cea6-418d-8931-1dd9b996e89f/requisitions
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
+
+{
+  "requisition_number": "666",
+  "preparation_date": "2023-01-01",
+  "processing_date": "2023-01-01",
+  "estimated_amount": 1500,
+  "area_id": "06695acb-6247-478d-b98f-7620bd027bba",
+  "sub_budget_id": "02697ebf-cea6-418d-8931-1dd9b996e89f"
+}
+
+###
+
+GET {{api_url}}/api/sub-budgets/requisitions/dictionary
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}

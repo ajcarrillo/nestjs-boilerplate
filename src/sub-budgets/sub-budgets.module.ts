@@ -9,19 +9,24 @@ import { BudgetsModule } from "../budgets/budgets.module"
 import { EmployeesModule } from "../employees/employees.module"
 import { SubBudgetAdjustment } from "./entities/sub-budget-adjustment.entity"
 import { AuthModule } from "../auth/auth.module"
+import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity"
+import { RequisitionSubBudgetService } from "./requsitions/requisition-sub-budget.service"
+import { RequisitionSubBudgetController } from "./requsitions/requisition-sub-budget.controller"
 
 @Module({
-  controllers: [SubBudgetsController, SubBudgetAdjustmentController],
-  providers: [SubBudgetsService, SubBudgetAdjustmentService],
+  controllers: [SubBudgetsController, SubBudgetAdjustmentController, RequisitionSubBudgetController],
+  providers: [SubBudgetsService, SubBudgetAdjustmentService, RequisitionSubBudgetService],
   imports: [
     TypeOrmModule.forFeature([
       SubBudget,
-      SubBudgetAdjustment
+      SubBudgetAdjustment,
+      RequisitionSubBudget,
     ]),
     BudgetsModule,
     EmployeesModule,
-    AuthModule
+    AuthModule,
   ],
-  exports: [TypeOrmModule, SubBudgetsService, SubBudgetAdjustmentService]
+  exports: [TypeOrmModule, SubBudgetsService, SubBudgetAdjustmentService, RequisitionSubBudgetService],
 })
-export class SubBudgetsModule {}
+export class SubBudgetsModule {
+}
