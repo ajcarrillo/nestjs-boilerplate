@@ -27,16 +27,11 @@ export class SubBudgetAdjustmentService {
       throw new BadRequestException("El monto de ajuste es mayor que el disponible en el sub presupuesto de origen")
     }
 
-    console.log({ sourceSubBudget, targetSubBudget })
+    const sourceAmount = Number(sourceSubBudget.amount)
+    const targetAmount = Number(targetSubBudget.amount)
 
-    const sourceAmount = Number(sourceSubBudget.amount);
-    const targetAmount = Number(targetSubBudget.amount);
-
-    sourceSubBudget.amount = Number((sourceAmount - amount).toFixed(2));
-    targetSubBudget.amount = Number((targetAmount + amount).toFixed(2));
-
-
-    console.log({ sourceSubBudget, targetSubBudget })
+    sourceSubBudget.amount = Number((sourceAmount - amount).toFixed(2))
+    targetSubBudget.amount = Number((targetAmount + amount).toFixed(2))
 
     const subBudgetAdjustment = await this.subBudgetAdjustmentRepository.create({
       ...createSubBudgetAdjustmentDto,
