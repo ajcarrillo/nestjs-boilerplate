@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common"
+import { forwardRef, Module } from "@nestjs/common"
 import { PurchaseOrdersService } from "./purchase-orders.service"
 import { PurchaseOrdersController } from "./purchase-orders.controller"
 import { PurchaseOrder } from "./entities"
@@ -20,7 +20,7 @@ import { SubBudgetsModule } from "../sub-budgets/sub-budgets.module"
     CommonModule,
     RequisitionsModule,
     AuthModule,
-    SubBudgetsModule,
+    forwardRef(() => SubBudgetsModule),
   ],
   exports: [PurchaseOrdersService],
 })

@@ -12,6 +12,7 @@ import { AuthModule } from "../auth/auth.module"
 import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity"
 import { RequisitionSubBudgetService } from "./requsitions/requisition-sub-budget.service"
 import { RequisitionSubBudgetController } from "./requsitions/requisition-sub-budget.controller"
+import { FilesModule } from "../files/files.module"
 
 @Module({
   controllers: [SubBudgetsController, SubBudgetAdjustmentController, RequisitionSubBudgetController],
@@ -25,6 +26,7 @@ import { RequisitionSubBudgetController } from "./requsitions/requisition-sub-bu
     BudgetsModule,
     EmployeesModule,
     AuthModule,
+    FilesModule,
   ],
   exports: [TypeOrmModule, SubBudgetsService, SubBudgetAdjustmentService, RequisitionSubBudgetService],
 })

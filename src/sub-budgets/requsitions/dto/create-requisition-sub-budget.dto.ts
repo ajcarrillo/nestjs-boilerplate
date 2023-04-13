@@ -1,4 +1,4 @@
-import { IsDateString, IsNumber, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator"
+import { IsDateString, IsString, IsUUID, MaxLength, MinLength } from "class-validator"
 
 export class CreateRequisitionSubBudgetDto {
   @IsString()
@@ -12,11 +12,8 @@ export class CreateRequisitionSubBudgetDto {
   @IsDateString()
   processing_date: string
 
-  @IsNumber()
-  estimated_amount: number
-
-  @IsOptional()
-  file?: string
+  @IsString()
+  estimated_amount: string | number
 
   @IsString()
   @IsUUID()

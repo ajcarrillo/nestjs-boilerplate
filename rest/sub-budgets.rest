@@ -58,3 +58,9 @@ Authorization: Bearer {{ auth_token }}
 GET {{api_url}}/api/sub-budgets/requisitions/dictionary
 Content-Type: application/json
 Authorization: Bearer {{ auth_token }}
+
+###
+
+GET {{api_url}}/api/sub-budgets/requisitions/all
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
