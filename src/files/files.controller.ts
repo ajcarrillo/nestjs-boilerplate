@@ -7,14 +7,25 @@ import { fileFilter } from "./helpers"
 import { RequisitionsService } from "../requisitions/requisitions.service"
 import { PurchaseOrdersService } from "../purchase-orders/purchase-orders.service"
 
-@Controller('files')
+@Controller("files")
 export class FilesController {
   constructor(
     private readonly s3Service: S3Service,
     private readonly configService: ConfigService,
     private readonly requisitionService: RequisitionsService,
     private readonly purchaseOrderService: PurchaseOrdersService,
-  ) {}
+  ) {
+  }
+
+  @Get("preview/:id")
+  async getFile(
+    @Res() res: Response,
+    @Param("id") id: string,
+  ) {
+    const stream = await this.s3Service.s3_getFile(id)
+
+    return stream.pipe(res)
+  }
 
   @Get("requisitions/:id/:filename")
   async getRequisitionFile(
@@ -29,20 +40,20 @@ export class FilesController {
 
   @Post("requisitions/:id/")
   @UseInterceptors(FileInterceptor("file", {
-    fileFilter: fileFilter
+    fileFilter: fileFilter,
   }))
   async uploadRequisitionFile(
     @UploadedFile() file: Express.Multer.File,
     @Param("id") id: string,
-    @Res() res
+    @Res() res,
   ) {
-    if(!file) throw new BadRequestException("No file received")
+    if (!file) throw new BadRequestException("No file received")
 
     const { Key } = await this.s3Service.uploadFile(file)
 
     await this.requisitionService.updateFileName(id, Key)
 
-    return res.json({ "file_name": Key  })
+    return res.json({ "file_name": Key })
   }
 
   @Get("purchase-orders/:id/:filename")
@@ -58,20 +69,20 @@ export class FilesController {
 
   @Post("purchase-orders/:id/")
   @UseInterceptors(FileInterceptor("file", {
-    fileFilter: fileFilter
+    fileFilter: fileFilter,
   }))
   async uploadPurchaseOrderFile(
     @UploadedFile() file: Express.Multer.File,
     @Param("id") id: string,
-    @Res() res
+    @Res() res,
   ) {
-    if(!file) throw new BadRequestException("No file received")
+    if (!file) throw new BadRequestException("No file received")
 
     const { Key } = await this.s3Service.uploadFile(file)
 
     await this.purchaseOrderService.updateFileName(id, Key)
 
-    return res.json({ "file_name": Key  })
+    return res.json({ "file_name": Key })
   }
 
   @Get("payment-orders/:id/:filename")
