@@ -75,4 +75,21 @@ export class RequisitionSubBudgetService {
       relations: ["subBudget"],
     })
   }
+
+  async update(id: string, createRequisitionSubBudgetDto: CreateRequisitionSubBudgetDto, user: User, file: Express.Multer.File) {
+    const { ...requisition } = createRequisitionSubBudgetDto
+
+    const requisitionToUpdate = await this.requisitionSubBudgetRepository.preload({
+      id,
+      updatedBy: user.id,
+      ...requisition,
+      estimated_amount: +createRequisitionSubBudgetDto.estimated_amount,
+    })
+
+    if (!requisitionToUpdate) {
+      throw new BadRequestException(`La requisición con el id ${id} no existe`)
+    }
+
+    return this.requisitionSubBudgetRepository.save(requisitionToUpdate)
+  }
 }
