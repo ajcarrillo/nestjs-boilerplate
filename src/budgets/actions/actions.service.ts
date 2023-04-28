@@ -8,7 +8,7 @@ import { Repository } from "typeorm"
 export class ActionsService {
   constructor(
     @InjectRepository(Action)
-    private readonly actionRepository: Repository<Action>
+    private readonly actionRepository: Repository<Action>,
   ) {
   }
 
@@ -42,11 +42,15 @@ export class ActionsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} action`;
+    return `This action removes a #${id} action`
   }
 
   async getDictionary() {
-    const actions = await this.actionRepository.find()
+    const actions = await this.actionRepository.find({
+      order: {
+        name: "ASC",
+      },
+    })
 
     return actions.map(action => ({
       value: action.id,

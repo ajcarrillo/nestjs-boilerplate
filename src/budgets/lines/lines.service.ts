@@ -46,7 +46,11 @@ export class LinesService {
   }
 
   async getDictionary() {
-    const lines = await this.lineRepository.find()
+    const lines = await this.lineRepository.find({
+      order: {
+        name: "ASC",
+      },
+    })
 
     return lines.map(line => ({
       value: line.id,
