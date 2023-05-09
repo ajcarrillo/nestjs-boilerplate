@@ -64,3 +64,9 @@ Authorization: Bearer {{ auth_token }}
 GET {{api_url}}/api/sub-budgets/requisitions/all
 Content-Type: application/json
 Authorization: Bearer {{ auth_token }}
+
+###
+
+GET {{api_url}}/api/sub-budgets/dictionary?search=cuota
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
