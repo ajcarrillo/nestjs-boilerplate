@@ -1,17 +1,16 @@
 FROM node:16.16-alpine AS development
-RUN npm i -g pnpm
 
 RUN apk --update add postgresql-client
 
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json yarn.lock ./
 
-RUN pnpm install
+RUN yarn install
 
 COPY . .
 
-RUN pnpm run build
+RUN yarn run build
 
 FROM node:16.16-alpine as production
 RUN apk --update add postgresql-client
@@ -21,11 +20,9 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json yarn.lock ./
 
-RUN npm install -g pnpm
-
-RUN pnpm install --only=production
+RUN yarn install --production
 
 COPY . .
 
