@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common"
 import { SubBudgetsService } from "./sub-budgets.service"
-import { CreateSubBudgetDto, UpdateSubBudgetDto } from "./dto"
+import { CreateSubBudgetDto, SubBudgetsDictionaryDto, UpdateSubBudgetDto } from "./dto"
 import { Auth, GetUser } from "../auth/decorators"
 import { User } from "../auth/entities"
 
@@ -20,6 +20,11 @@ export class SubBudgetsController {
   @Get()
   findAll() {
     return this.subBudgetsService.findAll();
+  }
+
+  @Get('dictionary')
+  getDictionary(@Query() subBudgetsDictionaryDto: SubBudgetsDictionaryDto) {
+    return this.subBudgetsService.getDictionary(subBudgetsDictionaryDto);
   }
 
   @Get(':id')

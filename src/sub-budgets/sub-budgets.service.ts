@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
-import { CreateSubBudgetDto, UpdateSubBudgetDto } from "./dto"
+import { CreateSubBudgetDto, SubBudgetsDictionaryDto, UpdateSubBudgetDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { SubBudget } from "./entities/sub-budget.entity"
 import { Repository } from "typeorm"
@@ -78,6 +78,22 @@ export class SubBudgetsService {
 
   remove(id: string) {
     return `This action removes a #${id} subBudget`
+  }
+
+  async getDictionary(subBudgetsDictionaryDto: SubBudgetsDictionaryDto) {
+    const searchLowerCase = subBudgetsDictionaryDto.search.toLowerCase();
+
+    const subBudgets = await this.subBudgetsRepository.createQueryBuilder('subBudget')
+      .where('LOWER(subBudget.event) LIKE :search', {
+        search: `%${searchLowerCase}%`,
+      })
+      .getMany();
+
+    return subBudgets.map(subBudget => ({
+        value: subBudget.id,
+        label: subBudget.event,
+      })
+    )
   }
 
   private async findResources(action_id: number, line_id: number, department_id: string) {
