@@ -70,3 +70,9 @@ Authorization: Bearer {{ auth_token }}
 GET {{api_url}}/api/sub-budgets/dictionary?search=cuota
 Content-Type: application/json
 Authorization: Bearer {{ auth_token }}
+
+###
+
+GET http://localhost:3000/api/sub-budget-adjustment
+Content-Type: application/json
+Authorization: Bearer {{ auth_token }}
