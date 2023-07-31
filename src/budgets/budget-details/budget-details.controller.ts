@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common"
 import { BudgetDetailsService } from "./budget-details.service"
-import { CreateBudgetDetailDto, UpdateBudgetDetailDto } from "./dto"
+import { CreateBudgetDetailDto, UpdateBudgetDetailDto, UpdateBudgetDetailMonthDto } from "./dto";
 
 @Controller('budgets/:budgetId/budget-details')
 export class BudgetDetailsController {
@@ -29,5 +29,15 @@ export class BudgetDetailsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.budgetDetailsService.remove(+id);
+  }
+
+  @Patch(':id/months/:budgetDetail')
+  updateMonth(@Param('id') id: number, @Param('budgetDetail') budgetDetail: number, @Body() updateBudgetDetailDto: UpdateBudgetDetailMonthDto) {
+    return this.budgetDetailsService.updateMonth(id, budgetDetail, updateBudgetDetailDto);
+  }
+
+  @Post(':id/months')
+  createMonth(@Param('id') id: number, @Body() updateBudgetDetailDto: UpdateBudgetDetailMonthDto) {
+    return this.budgetDetailsService.createMonth(id, updateBudgetDetailDto);
   }
 }

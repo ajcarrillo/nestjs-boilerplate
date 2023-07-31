@@ -10,7 +10,6 @@ export class BudgetDetailsMonthController {
 
   @Get()
   filterBy(@Query() query: FilterBudgetDetailDto) {
-    console.log({ query })
     return this.budgetDetailsMonthService.filterBy(query)
   }
 }

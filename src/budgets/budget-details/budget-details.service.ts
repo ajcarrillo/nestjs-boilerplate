@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
-import { CreateBudgetDetailDto, UpdateBudgetDetailDto } from "./dto"
+import { CreateBudgetDetailDto, UpdateBudgetDetailDto, UpdateBudgetDetailMonthDto } from "./dto";
 import { InjectRepository } from "@nestjs/typeorm"
 import { BudgetDetail } from "../entities"
 import { Repository } from "typeorm"
@@ -35,7 +35,7 @@ export class BudgetDetailsService {
       months: budgetMonths.map((el) => this.budgetDetailMonthRepository.create({
         quantity: el.quantity,
         month: el.month.toLowerCase(),
-        budget_detail_id: el.budget_detail_id,
+        budget_detail_id: +el.budget_detail_id,
       })),
     })
 
@@ -69,5 +69,31 @@ export class BudgetDetailsService {
 
   async remove(id: number) {
     return `This action removes a #${id} budgetDetail`;
+  }
+
+  async updateMonth(id: number, budgetDetailId: number, updateBudgetDetailDto: UpdateBudgetDetailMonthDto) {
+    if (updateBudgetDetailDto.quantity === 0) {
+      await this.budgetDetailMonthRepository.delete(budgetDetailId);
+      return;
+    }
+
+    const itemToUpdate = await this.budgetDetailMonthRepository.preload({
+      id: budgetDetailId,
+      ...updateBudgetDetailDto
+    })
+
+    if (!itemToUpdate) {
+      throw new NotFoundException(`El sub presupuesto con el id ${id} no existe`)
+    }
+
+    return await this.budgetDetailMonthRepository.save(itemToUpdate)
+  }
+
+  async createMonth(id: number, updateBudgetDetailDto: UpdateBudgetDetailMonthDto) {
+    const itemToUpdate = this.budgetDetailMonthRepository.create({
+      ...updateBudgetDetailDto
+    });
+
+    return await this.budgetDetailMonthRepository.save(itemToUpdate);
   }
 }

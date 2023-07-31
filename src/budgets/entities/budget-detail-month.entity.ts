@@ -6,8 +6,8 @@ export class BudgetDetailMonth {
   @PrimaryGeneratedColumn("increment")
   id: number
 
-  @Column("uuid")
-  budget_detail_id: string
+  @Column("int")
+  budget_detail_id: number
 
   @ManyToOne(
     () => BudgetDetail,
