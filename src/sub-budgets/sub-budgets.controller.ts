@@ -27,6 +27,11 @@ export class SubBudgetsController {
     return this.subBudgetsService.getDictionary(subBudgetsDictionaryDto);
   }
 
+  @Get('savings')
+  getSavings() {
+    return this.subBudgetsService.getSavings();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.subBudgetsService.findOne(id);
