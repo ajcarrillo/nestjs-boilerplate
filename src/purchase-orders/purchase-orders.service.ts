@@ -56,9 +56,11 @@ export class PurchaseOrdersService {
     const rawResult = await this.purchaseOrderRepository
       .createQueryBuilder("purchase_order")
       .addSelect("r.*")
+      .addSelect("a.*")
       .innerJoin(Requisition, "r", "purchase_order.requisition_id = r.id AND purchase_order.requisitionType = :requisitionType1", {
         requisitionType1: "RequisitionEntity",
       })
+      .innerJoin("r.area", "a", "a.id = r.area_id")
       .getRawMany()
 
     return rawResult.map(row => ({
@@ -75,6 +77,10 @@ export class PurchaseOrdersService {
         processing_date: formatDate(row.processing_date),
         file: row.file,
         area_id: row.area_id,
+        area: {
+          id: row.area_id,
+          name: row.description,
+        }
       },
     }))
   }
@@ -83,9 +89,13 @@ export class PurchaseOrdersService {
     const rawResult = await this.purchaseOrderRepository
       .createQueryBuilder("purchase_order")
       .addSelect("r.*")
+      .addSelect("a.*")
+      .addSelect("sb.*")
       .innerJoin(RequisitionSubBudget, "r", "purchase_order.requisition_id = r.id AND purchase_order.requisitionType = :requisitionType1", {
         requisitionType1: "RequisitionSubBudgetEntity",
       })
+      .innerJoin("r.subBudget", "sb", "sb.id = r.sub_budget_id")
+      .innerJoin("r.area", "a", "a.id = r.area_id")
       .getRawMany()
 
     return rawResult.map(row => ({
@@ -94,6 +104,7 @@ export class PurchaseOrdersService {
       reception_date: formatDate(row.purchase_order_reception_date),
       file: row.purchase_order_file,
       requisition_type: row.purchase_order_requisition_type,
+      event: row.event,
       requisition: {
         id: row.id,
         requisition_number: row.requisition_number,
@@ -102,6 +113,10 @@ export class PurchaseOrdersService {
         processing_date: formatDate(row.processing_date),
         file: row.file,
         area_id: row.area_id,
+        area: {
+          id: row.area_id,
+          name: row.description,
+        }
       },
     }))
   }
