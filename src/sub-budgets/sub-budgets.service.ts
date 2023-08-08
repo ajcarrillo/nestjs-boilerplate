@@ -8,6 +8,9 @@ import { LinesService } from "../budgets/lines/lines.service"
 import { AreasService } from "../employees/areas/areas.service"
 import { Auth } from "../auth/decorators"
 import { User } from "../auth/entities"
+import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity";
+import { PurchaseOrder } from "../purchase-orders/entities";
+import { PaymentOrder } from "../payment-orders/entities";
 
 @Injectable()
 @Auth()
@@ -21,6 +24,31 @@ export class SubBudgetsService {
   ) {
   }
 
+  async getSavings() {
+    return await this.subBudgetsRepository
+      .createQueryBuilder("sb")
+      .select([
+        "sb.id AS sub_budget_id",
+        "a.name AS action",
+        "l.name AS line",
+        "ar.description AS area",
+        "sb.event",
+        "sb.amount",
+        "SUM(payo.amount) AS total_paid",
+        "sb.amount - SUM(payo.amount) AS savings",
+      ])
+      .innerJoin("sb.action", "a")
+      .innerJoin("sb.line", "l")
+      .innerJoin("sb.department", "ar")
+      .innerJoin(RequisitionSubBudget, "rsb", "sb.id = rsb.subBudget")
+      .innerJoin(PurchaseOrder, "po", "rsb.id = po.requisition_id")
+      .innerJoin(PaymentOrder, "payo", "po.id = payo.purchaseOrder")
+      .where("po.requisitionType = :requisitionType", {
+        requisitionType: "RequisitionSubBudgetEntity",
+      })
+      .groupBy("sb.id, l.name, a.name, ar.description")
+      .getRawMany();
+  }
 
   async create(createSubBudgetDto: CreateSubBudgetDto, user: User) {
     const { action_id, line_id, department_id } = createSubBudgetDto
