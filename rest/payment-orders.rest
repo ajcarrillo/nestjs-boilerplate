@@ -1,4 +1,4 @@
-GET {{api_url}}/api/payment-orders
+GET {{api_url}}/api/payment-orders?show=presupuestos
 Authorization: Bearer {{ auth_token }}
 
 ###

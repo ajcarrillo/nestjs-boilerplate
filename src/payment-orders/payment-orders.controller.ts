@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseInterceptors } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UploadedFiles,
+  UseInterceptors
+} from "@nestjs/common";
 import { PaymentOrdersService } from "./payment-orders.service"
 import { CreatePaymentOrderDto, UpdatePaymentOrderDto } from "./dto"
 import { Auth, GetUser } from "../auth/decorators"
@@ -31,8 +42,8 @@ export class PaymentOrdersController {
   }
 
   @Get()
-  findAll() {
-    return this.paymentOrdersService.findAll();
+  findAll(@Query('show') show: 'presupuestos' | 'subpresupuestos' = 'presupuestos') {
+    return this.paymentOrdersService.findAll(show);
   }
 
   @Get(':id')

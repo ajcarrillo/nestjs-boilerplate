@@ -9,6 +9,8 @@ import { S3Service } from "../files/s3.service"
 import { Requisition } from "../requisitions/entities"
 import { RequisitionSubBudget } from "../sub-budgets/entities/requisition-sub-budget.entity"
 import { formatDate } from "../utils/date-utils"
+import { Area } from "../employees/entities";
+import { SubBudget } from "../sub-budgets/entities/sub-budget.entity";
 
 @Injectable()
 export class PaymentOrdersService {
@@ -62,98 +64,27 @@ export class PaymentOrdersService {
     return this.paymentOrderRepository.save(paymentOrder)
   }
 
-  async findAll() {
-    // return this.paymentOrderRepository.find({
-    //   relations: ["purchaseOrder"],
-    // })
+  async findAll(show: 'presupuestos' | 'subpresupuestos') {
+    if (show === 'presupuestos') {
+      const paymentOrders = await this.paymentOrderRepository
+        .createQueryBuilder("po")
+        .innerJoinAndSelect("po.purchaseOrder", "por")
+        .innerJoinAndSelect(Requisition, "r", "r.id = por.requisition_id AND por.requisitionType = :requisitionType1", { requisitionType1: "RequisitionEntity" })
+        .innerJoinAndSelect(Area, "a", "a.id = r.area_id")
+        .getRawMany()
 
-    // const paymentOrders = await this.paymentOrderRepository
-    //   .createQueryBuilder("paymentOrder")
-    //   .leftJoinAndSelect("paymentOrder.purchaseOrder", "purchaseOrder")
-    //   .leftJoinAndSelect(Requisition, "requisition", "requisition.id = purchaseOrder.requisition_id AND purchaseOrder.requisitionType = :requisitionType1", { requisitionType1: "RequisitionEntity" })
-    //   .leftJoinAndSelect(RequisitionSubBudget, "requisitionSubBudget", "requisitionSubBudget.id = purchaseOrder.requisition_id AND purchaseOrder.requisitionType = :requisitionType2", { requisitionType2: "RequisitionSubBudgetEntity" })
-    //   .getMany()
-    //
-    // return paymentOrders.map(paymentOrder => {
-    //   const { purchaseOrder } = paymentOrder
-    //   const { requisition, requisitionSubBudget } = purchaseOrder
-    //
-    //   return {
-    //     ...paymentOrder,
-    //     purchaseOrder: {
-    //       ...purchaseOrder,
-    //       requisition: purchaseOrder.requisitionType === "RequisitionEntity" ? requisition : requisitionSubBudget,
-    //     },
-    //   }
-    // })
+      return paymentOrders
+    }
 
     const paymentOrders = await this.paymentOrderRepository
-      .createQueryBuilder("paymentOrder")
-      .leftJoinAndSelect("paymentOrder.purchaseOrder", "purchaseOrder")
-      .leftJoinAndSelect(Requisition, "requisition", "requisition.id = purchaseOrder.requisition_id AND purchaseOrder.requisitionType = :requisitionType1", { requisitionType1: "RequisitionEntity" })
-      .leftJoinAndSelect(RequisitionSubBudget, "requisitionSubBudget", "requisitionSubBudget.id = purchaseOrder.requisition_id AND purchaseOrder.requisitionType = :requisitionType2", { requisitionType2: "RequisitionSubBudgetEntity" })
-      .addSelect("CASE purchaseOrder.requisitionType WHEN 'RequisitionEntity' THEN 'requisition' ELSE 'requisitionSubBudget' END", "requisitionSource")
+      .createQueryBuilder("po")
+      .innerJoinAndSelect("po.purchaseOrder", "por")
+      .innerJoinAndSelect(RequisitionSubBudget, "rsb", "rsb.id = por.requisition_id AND por.requisitionType = :requisitionType2", { requisitionType2: "RequisitionSubBudgetEntity" })
+      .innerJoinAndSelect(SubBudget, "sb", "sb.id = rsb.sub_budget_id")
+      .innerJoinAndSelect(Area, "a", "a.id = rsb.area_id")
       .getRawMany()
 
-    return paymentOrders.map(row => {
-      const paymentOrder = {
-        createdAt: row.paymentOrder_created_at,
-        updatedAt: row.paymentOrder_updated_at,
-        createdBy: row.paymentOrder_created_by,
-        updatedBy: row.paymentOrder_updated_by,
-        id: row.paymentOrder_id,
-        payment_number: row.paymentOrder_payment_number,
-        amount: row.paymentOrder_amount,
-        payment_date: formatDate(row.paymentOrder_payment_date),
-        payment_file: row.paymentOrder_payment_file,
-        check_file: row.paymentOrder_check_file,
-        check_number: row.paymentOrder_check_number,
-        is_submitted_to_finance: row.paymentOrder_is_submitted_to_finance,
-        purchaseOrder: {
-          createdAt: row.purchaseOrder_created_at,
-          updatedAt: row.purchaseOrder_updated_at,
-          createdBy: row.purchaseOrder_created_by,
-          updatedBy: row.purchaseOrder_updated_by,
-          id: row.purchaseOrder_id,
-          requisition_id: row.purchaseOrder_requisition_id,
-          order_number: row.purchaseOrder_order_number,
-          reception_date: formatDate(row.purchaseOrder_reception_date),
-          file: row.purchaseOrder_file,
-          requisitionType: row.purchaseOrder_requisition_type,
-        },
-      }
-
-      if (row.requisitionSource === "requisition") {
-        // @ts-ignore
-        paymentOrder.purchaseOrder.requisition = {
-          id: row.requisition_id,
-          requisition_number: row.requisition_requisition_number,
-          estimated_amount: row.requisition_estimated_amount,
-          preparation_date: formatDate(row.requisition_preparation_date),
-          processing_date: formatDate(row.requisition_processing_date),
-          file: row.requisition_file,
-          area_id: row.requisition_area_id,
-        }
-      } else {
-        // @ts-ignore
-        paymentOrder.purchaseOrder.requisition = {
-          createdAt: row.requisitionSubBudget_created_at,
-          updatedAt: row.requisitionSubBudget_updated_at,
-          createdBy: row.requisitionSubBudget_created_by,
-          updatedBy: row.requisitionSubBudget_updated_by,
-          id: row.requisitionSubBudget_id,
-          requisition_number: row.requisitionSubBudget_requisition_number,
-          estimated_amount: row.requisitionSubBudget_estimated_amount,
-          preparation_date: formatDate(row.requisitionSubBudget_preparation_date),
-          processing_date: formatDate(row.requisitionSubBudget_processing_date),
-          file: row.requisitionSubBudget_file,
-          area_id: row.requisitionSubBudget_area_id,
-          sub_budget_id: row.requisitionSubBudget_sub_budget_id,
-        }
-      }
-
-      return paymentOrder
-    })
+    return paymentOrders
   }
 
   async findOne(id: string) {
