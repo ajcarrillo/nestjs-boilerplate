@@ -75,6 +75,6 @@ export class PaymentOrdersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.paymentOrdersService.remove(+id);
+    return this.paymentOrdersService.remove(id);
   }
 }

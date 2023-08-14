@@ -2,13 +2,14 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { PurchaseOrder } from "./entities"
-import { Repository } from "typeorm"
+import { DataSource, Repository } from "typeorm";
 import { RequisitionsService } from "../requisitions/requisitions.service"
 import { User } from "../auth/entities"
 import { RequisitionSubBudgetService } from "../sub-budgets/requsitions/requisition-sub-budget.service"
 import { Requisition } from "../requisitions/entities"
 import { RequisitionSubBudget } from "../sub-budgets/entities/requisition-sub-budget.entity"
 import { formatDate } from "../utils/date-utils"
+import { PaymentOrdersService } from "../payment-orders/payment-orders.service";
 
 @Injectable()
 export class PurchaseOrdersService {
@@ -17,6 +18,8 @@ export class PurchaseOrdersService {
     private readonly purchaseOrderRepository: Repository<PurchaseOrder>,
     private readonly requisitionService: RequisitionsService,
     private readonly requisitionSubBudgetService: RequisitionSubBudgetService,
+    private readonly paymentOrderService: PaymentOrdersService,
+    private readonly dataSource: DataSource,
   ) {
   }
 
@@ -141,8 +144,10 @@ export class PurchaseOrdersService {
     return this.purchaseOrderRepository.save(purchaseOrderToUpdate)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} purchaseOrder`
+  async remove(id: string, type: string) {
+    await this.dataSource.transaction(async entityManager => {
+      const purchaseOrder = await entityManager.findOneBy(PurchaseOrder, { id })
+    })
   }
 
   async updateFileName(id: string, fileName: string) {
