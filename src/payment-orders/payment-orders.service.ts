@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { BadRequestException, forwardRef, Inject, Injectable } from "@nestjs/common";
 import { CreatePaymentOrderDto, UpdatePaymentOrderDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { PaymentOrder } from "./entities"
@@ -17,6 +17,7 @@ export class PaymentOrdersService {
   constructor(
     @InjectRepository(PaymentOrder)
     private readonly paymentOrderRepository: Repository<PaymentOrder>,
+    @Inject(forwardRef(() => PurchaseOrdersService))
     private readonly purchaseOrderService: PurchaseOrdersService,
     private readonly s3Service: S3Service,
   ) {
@@ -138,7 +139,13 @@ export class PaymentOrdersService {
     return this.paymentOrderRepository.save(paymentOrderToUpdate)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} paymentOrder`
+  async remove(id: string) {
+    const paymentOrder = await this.findOne(id)
+
+    if(!paymentOrder) {
+      throw new BadRequestException(`The payment order with id ${id} does not exist`)
+    }
+
+    return this.paymentOrderRepository.remove(paymentOrder)
   }
 }

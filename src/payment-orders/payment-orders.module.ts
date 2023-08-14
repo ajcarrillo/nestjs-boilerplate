@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common"
+import { forwardRef, Module } from "@nestjs/common";
 import { PaymentOrdersService } from "./payment-orders.service"
 import { PaymentOrdersController } from "./payment-orders.controller"
 import { TypeOrmModule } from "@nestjs/typeorm"
@@ -15,8 +15,9 @@ import { FilesModule } from "../files/files.module"
       PaymentOrder
     ]),
     AuthModule,
-    PurchaseOrdersModule,
-    FilesModule
+    forwardRef(() => PurchaseOrdersModule),
+    forwardRef(() => FilesModule),
   ],
+  exports: [PaymentOrdersService],
 })
 export class PaymentOrdersModule {}

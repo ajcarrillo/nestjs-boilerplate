@@ -7,6 +7,7 @@ import { CommonModule } from "../common/common.module"
 import { RequisitionsModule } from "../requisitions/requisitions.module"
 import { AuthModule } from "../auth/auth.module"
 import { SubBudgetsModule } from "../sub-budgets/sub-budgets.module"
+import { PaymentOrdersModule } from "../payment-orders/payment-orders.module";
 
 @Module({
   controllers: [PurchaseOrdersController],
@@ -20,6 +21,7 @@ import { SubBudgetsModule } from "../sub-budgets/sub-budgets.module"
     CommonModule,
     RequisitionsModule,
     AuthModule,
+    forwardRef(() => PaymentOrdersModule),
     forwardRef(() => SubBudgetsModule),
   ],
   exports: [PurchaseOrdersService],
