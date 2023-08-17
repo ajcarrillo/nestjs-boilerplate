@@ -10,6 +10,7 @@ import { Requisition } from "../requisitions/entities"
 import { RequisitionSubBudget } from "../sub-budgets/entities/requisition-sub-budget.entity"
 import { formatDate } from "../utils/date-utils"
 import { PaymentOrdersService } from "../payment-orders/payment-orders.service";
+import { PaymentOrder } from "src/payment-orders/entities";
 
 @Injectable()
 export class PurchaseOrdersService {
@@ -144,9 +145,22 @@ export class PurchaseOrdersService {
     return this.purchaseOrderRepository.save(purchaseOrderToUpdate)
   }
 
-  async remove(id: string, type: string) {
+  async remove(id: string, type: "RequisitionEntity" | "RequisitionSubBudgetEntity") {
     await this.dataSource.transaction(async entityManager => {
-      const purchaseOrder = await entityManager.findOneBy(PurchaseOrder, { id })
+      const purchaseOrder = await entityManager.findOneBy(PurchaseOrder, {
+        id,
+        requisitionType: type,
+      })
+
+      if (!purchaseOrder) {
+        throw new Error(`PurchaseOrder with id ${id} not found`);
+      }
+
+      await entityManager.delete(PaymentOrder, {
+        purchaseOrder: { id: purchaseOrder.id }
+      });
+
+      await entityManager.remove(purchaseOrder);
     })
   }
 

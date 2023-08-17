@@ -36,6 +36,6 @@ export class RequisitionsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.requisitionsService.remove(+id);
+    return this.requisitionsService.remove(id);
   }
 }

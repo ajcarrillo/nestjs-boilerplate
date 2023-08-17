@@ -2,11 +2,13 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { CreateRequisitionDto, UpdateRequisitionDto } from "./dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Requisition } from "./entities"
-import { Repository } from "typeorm"
+import { DataSource, Repository } from "typeorm"
 import { isUUID } from "class-validator"
 import { AreasService } from "../employees/areas/areas.service"
 import { PaginateCollectionDto } from "../common/dto"
 import { RequisitionDictionaryDto } from "./dto/requisition-dictionary.dto"
+import { PurchaseOrder } from "../purchase-orders/entities";
+import { PaymentOrder } from "../payment-orders/entities";
 
 @Injectable()
 export class RequisitionsService {
@@ -15,6 +17,7 @@ export class RequisitionsService {
     @InjectRepository(Requisition)
     private readonly requisitionRepository: Repository<Requisition>,
     private readonly areaService: AreasService,
+    private readonly dataSource: DataSource,
   ) {
   }
 
@@ -76,7 +79,7 @@ export class RequisitionsService {
     }
 
     let area;
-    const {area_id} = updateRequisitionDto
+    const { area_id } = updateRequisitionDto
 
     if (area_id) {
       area = await this.areaService.findOne(area_id)
@@ -99,8 +102,29 @@ export class RequisitionsService {
     return this.requisitionRepository.save(requisitionToUpdate)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} requisition`
+  async remove(id: string) {
+    await this.dataSource.transaction(async (entityManager) => {
+      const requisition = await entityManager.findOneBy(Requisition, { id })
+
+      if (!requisition) {
+        throw new NotFoundException(`La requisición con el id ${id} no existe`)
+      }
+
+      const purchaseOrder = await entityManager.findOneBy(PurchaseOrder, {
+        id,
+        requisitionType: 'RequisitionEntity',
+      })
+
+      if (purchaseOrder) {
+        await entityManager.delete(PaymentOrder, {
+          purchaseOrder: { id: purchaseOrder.id }
+        })
+
+        await entityManager.remove(purchaseOrder)
+      }
+
+      await entityManager.remove(requisition)
+    })
   }
 
   async updateFileName(id: string, filename: string) {
@@ -111,7 +135,10 @@ export class RequisitionsService {
     return this.requisitionRepository.save(requisition)
   }
 
-  async getDictionary(params: PaginateCollectionDto): Promise<RequisitionDictionaryDto[] | { items: RequisitionDictionaryDto[], total: number }> {
+  async getDictionary(params: PaginateCollectionDto): Promise<RequisitionDictionaryDto[] | {
+    items: RequisitionDictionaryDto[],
+    total: number
+  }> {
     const qb = this.requisitionRepository
       .createQueryBuilder("requisition")
       .innerJoin("requisition.area", "area")

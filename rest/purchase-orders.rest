@@ -37,3 +37,11 @@ Authorization: Bearer {{ auth_token }}
   "order_number": "001",
   "reception_date": "2023-02-02"
 }
+
+###
+DELETE {{api_url}}/api/purchase-orders/58ee9118-3832-4f3a-bbe4-6f3e2b6a22f5?requisitionType=RequisitionEntity
+Authorization: Bearer {{ auth_token }}
+
+###
+DELETE {{api_url}}/api/purchase-orders/18d2c3bc-3d23-499d-b069-fe90318e7a4b?requisitionType=RequisitionSubBudgetEntity
+Authorization: Bearer {{ auth_token }}
