@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Query } from "@nestjs/common";
 import { PurchaseOrdersService } from "./purchase-orders.service"
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from "./dto"
 import { Auth, GetUser } from "../auth/decorators"
@@ -56,10 +56,15 @@ export class PurchaseOrdersController {
   }
 
   @Delete(":id")
-  remove(
+  async remove(
     @Param("id") id: string,
-    @Query("requisitionType") requisitionType: string
-  ) {
-    return this.purchaseOrdersService.remove(id, requisitionType)
+    @Query("requisitionType") requisitionType: "RequisitionEntity" | "RequisitionSubBudgetEntity"
+  ): Promise<any> {
+    try {
+      await this.purchaseOrdersService.remove(id, requisitionType);
+      return { statusCode: HttpStatus.NO_CONTENT, message: 'Deleted successfully' };
+    } catch (error) {
+      throw new HttpException(error.message || 'Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
