@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { RequisitionSubBudget } from "../entities/requisition-sub-budget.entity";
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CreateRequisitionSubBudgetDto } from "./dto/create-requisition-sub-budget.dto";
 import { User } from "../../auth/entities";
 import { SubBudgetsService } from "../sub-budgets.service";
@@ -9,6 +9,8 @@ import { AreasService } from "../../employees/areas/areas.service";
 import { S3Service } from "../../files/s3.service";
 import { Express } from "express";
 import { UpdateRequisitionEventDto } from "./dto/update-requisition-event.dto";
+import { PurchaseOrder } from "../../purchase-orders/entities";
+import { PaymentOrder } from "../../payment-orders/entities";
 
 @Injectable()
 export class RequisitionSubBudgetService {
@@ -17,7 +19,8 @@ export class RequisitionSubBudgetService {
     private readonly requisitionSubBudgetRepository: Repository<RequisitionSubBudget>,
     private readonly subBudgetService: SubBudgetsService,
     private readonly areaService: AreasService,
-    private readonly s3Service: S3Service
+    private readonly s3Service: S3Service,
+    private readonly dataSource: DataSource
   ) {
   }
 
@@ -115,5 +118,30 @@ export class RequisitionSubBudgetService {
     }
 
     return this.requisitionSubBudgetRepository.save(requisitionToUpdate);
+  }
+
+  async remove(id: string) {
+    await this.dataSource.transaction(async (entityManager) => {
+      const requisition = await entityManager.findOneBy(RequisitionSubBudget, { id });
+
+      if (!requisition) {
+        throw new BadRequestException(`La requisición con el id ${id} no existe`);
+      }
+
+      const purchaseOrder = await entityManager.findOneBy(PurchaseOrder, {
+        requisition_id: id,
+        requisitionType: "RequisitionSubBudgetEntity"
+      });
+
+      if (purchaseOrder) {
+        await entityManager.delete(PaymentOrder, {
+          purchaseOrder: { id: purchaseOrder.id }
+        })
+
+        await entityManager.remove(purchaseOrder)
+      }
+
+      await entityManager.remove(requisition)
+    })
   }
 }

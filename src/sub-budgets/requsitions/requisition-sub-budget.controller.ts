@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { Auth, GetUser } from "../../auth/decorators";
 import { RequisitionSubBudgetService } from "./requisition-sub-budget.service";
 import { CreateRequisitionSubBudgetDto } from "./dto/create-requisition-sub-budget.dto";
@@ -58,5 +58,10 @@ export class RequisitionSubBudgetController {
   @Get("requisitions/dictionary")
   getDictionary() {
     return this.requisitionSubBudgetService.getDictionary();
+  }
+
+  @Delete(":id/requisitions/:requisitionId")
+  remove(@Param("requisitionId") id: string) {
+    return this.requisitionSubBudgetService.remove(id);
   }
 }
