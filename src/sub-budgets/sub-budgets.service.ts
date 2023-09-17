@@ -11,6 +11,8 @@ import { User } from "../auth/entities"
 import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity";
 import { PurchaseOrder } from "../purchase-orders/entities";
 import { PaymentOrder } from "../payment-orders/entities";
+import { SubBudgetSummaryView } from "./entities"
+
 
 @Injectable()
 @Auth()
@@ -18,6 +20,8 @@ export class SubBudgetsService {
   constructor(
     @InjectRepository(SubBudget)
     private readonly subBudgetsRepository: Repository<SubBudget>,
+    @InjectRepository(SubBudgetSummaryView)
+    private readonly subBudgetsSummaryRepository: Repository<SubBudgetSummaryView>,
     private readonly actionsService: ActionsService,
     private readonly linesService: LinesService,
     private readonly departmentsService: AreasService,
@@ -67,7 +71,7 @@ export class SubBudgetsService {
   }
 
   async findAll() {
-    return await this.subBudgetsRepository.find({
+    return await this.subBudgetsSummaryRepository.find({
       relations: [
         "adjustmentsFrom",
         "adjustmentsTo",
@@ -118,9 +122,9 @@ export class SubBudgetsService {
       .getMany();
 
     return subBudgets.map(subBudget => ({
-        value: subBudget.id,
-        label: subBudget.event,
-      })
+      value: subBudget.id,
+      label: subBudget.event,
+    })
     )
   }
 

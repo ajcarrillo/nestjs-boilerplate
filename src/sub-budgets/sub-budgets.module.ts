@@ -13,6 +13,7 @@ import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity"
 import { RequisitionSubBudgetService } from "./requsitions/requisition-sub-budget.service"
 import { RequisitionSubBudgetController } from "./requsitions/requisition-sub-budget.controller"
 import { FilesModule } from "../files/files.module"
+import { SubBudgetSummaryView } from "./entities"
 
 @Module({
   controllers: [SubBudgetsController, SubBudgetAdjustmentController, RequisitionSubBudgetController],
@@ -22,6 +23,7 @@ import { FilesModule } from "../files/files.module"
       SubBudget,
       SubBudgetAdjustment,
       RequisitionSubBudget,
+      SubBudgetSummaryView
     ]),
     BudgetsModule,
     EmployeesModule,
