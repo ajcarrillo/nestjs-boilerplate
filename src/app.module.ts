@@ -34,7 +34,7 @@ import { SubBudgetsModule } from "./sub-budgets/sub-budgets.module"
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
       namingStrategy: new SnakeNamingStrategy(),
     }),
     ServeStaticModule.forRoot({
