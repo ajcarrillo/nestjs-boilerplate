@@ -46,4 +46,7 @@ export class CreateSubBudgetDto {
 
   @IsString()
   risk: string
+
+  @IsNumber()
+  budget_year: number
 }

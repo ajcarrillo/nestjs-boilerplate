@@ -18,8 +18,8 @@ export class SubBudgetsController {
   }
 
   @Get()
-  findAll() {
-    return this.subBudgetsService.findAll();
+  findAll(@Query("budget") budget: string) {
+    return this.subBudgetsService.findAll(budget);
   }
 
   @Get('dictionary')

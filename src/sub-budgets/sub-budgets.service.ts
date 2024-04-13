@@ -12,6 +12,7 @@ import { RequisitionSubBudget } from "./entities/requisition-sub-budget.entity";
 import { PurchaseOrder } from "../purchase-orders/entities";
 import { PaymentOrder } from "../payment-orders/entities";
 import { SubBudgetSummaryView } from "./entities"
+import { BudgetsService } from "src/budgets/budgets.service"
 
 
 @Injectable()
@@ -25,6 +26,7 @@ export class SubBudgetsService {
     private readonly actionsService: ActionsService,
     private readonly linesService: LinesService,
     private readonly departmentsService: AreasService,
+    private readonly budgetsService: BudgetsService,
   ) {
   }
 
@@ -55,9 +57,9 @@ export class SubBudgetsService {
   }
 
   async create(createSubBudgetDto: CreateSubBudgetDto, user: User) {
-    const { action_id, line_id, department_id } = createSubBudgetDto
+    const { action_id, line_id, department_id, budget_year } = createSubBudgetDto
 
-    const { action, line, department } = await this.findResources(action_id, line_id, department_id)
+    const { action, line, department, budget } = await this.findResources(action_id, line_id, department_id, budget_year)
 
     const subBudget = this.subBudgetsRepository.create({
       ...createSubBudgetDto,
@@ -65,12 +67,13 @@ export class SubBudgetsService {
       line,
       department,
       createdBy: user.id,
+      budget
     })
 
     return await this.subBudgetsRepository.save(subBudget)
   }
 
-  async findAll() {
+  async findAll(budget_year: string) {
     return await this.subBudgetsSummaryRepository.find({
       relations: [
         "adjustmentsFrom",
@@ -78,8 +81,14 @@ export class SubBudgetsService {
         "adjustmentsFrom.targetSubBudget",
         "adjustmentsFrom.sourceSubBudget",
         "adjustmentsTo.targetSubBudget",
-        "adjustmentsTo.sourceSubBudget"
+        "adjustmentsTo.sourceSubBudget",
+        "budget"
       ],
+      where: {
+        budget: {
+          year: +budget_year
+        }
+      }
     })
   }
 
@@ -89,8 +98,8 @@ export class SubBudgetsService {
 
   async update(id: string, updateSubBudgetDto: UpdateSubBudgetDto, user: User) {
     const { ...subBudget } = updateSubBudgetDto
-    const { action_id, line_id, department_id } = updateSubBudgetDto
-    const { action, line, department } = await this.findResources(action_id, line_id, department_id)
+    const { action_id, line_id, department_id, budget_year } = updateSubBudgetDto
+    const { action, line, department } = await this.findResources(action_id, line_id, department_id, budget_year)
 
     const subBudgetToUpdate = await this.subBudgetsRepository.preload({
       id,
@@ -128,11 +137,12 @@ export class SubBudgetsService {
     )
   }
 
-  private async findResources(action_id: number, line_id: number, department_id: string) {
+  private async findResources(action_id: number, line_id: number, department_id: string, budget_id: number) {
     const action = await this.actionsService.findOne(action_id)
     const line = await this.linesService.findOne(line_id)
     const department = await this.departmentsService.findOne(department_id)
+    const budget = await this.budgetsService.findByYear(budget_id)
 
-    return { action, line, department }
+    return { action, line, department, budget }
   }
 }
