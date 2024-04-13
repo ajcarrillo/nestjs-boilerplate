@@ -1,6 +1,6 @@
 import { BaseEntity } from "src/common/entities"
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Action, Line } from "../../budgets/entities"
+import { Action, Budget, Line } from "../../budgets/entities"
 import { Area } from "../../employees/entities"
 import { SubBudgetAdjustment } from "./sub-budget-adjustment.entity"
 import { RequisitionSubBudget } from "./requisition-sub-budget.entity"
@@ -70,4 +70,10 @@ export class SubBudget extends BaseEntity {
     eager: true,
   })
   requisitions: RequisitionSubBudget[]
+
+  @ManyToOne(() => Budget, budget => budget.sub_budgets, {
+    nullable: true,
+    eager: true,
+  })
+  budget: Budget
 }
