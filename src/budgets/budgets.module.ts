@@ -30,7 +30,7 @@ import { AuthModule } from "../auth/auth.module"
     ]),
     AuthModule
   ],
-  exports: [TypeOrmModule, BudgetDetailsService, ActionsService, LinesService]
+  exports: [TypeOrmModule, BudgetDetailsService, ActionsService, LinesService, BudgetsService]
 })
 export class BudgetsModule {
 }
