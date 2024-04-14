@@ -74,9 +74,16 @@ export class RequisitionSubBudgetService {
     }));
   }
 
-  async findAll() {
+  async findAll(budget_year: number) {
     return this.requisitionSubBudgetRepository.find({
-      relations: ["subBudget"]
+      relations: ["subBudget", "subBudget.budget"],
+      where: {
+        subBudget: {
+          budget: {
+            year: +budget_year
+          }
+        }
+      }
     });
   }
 

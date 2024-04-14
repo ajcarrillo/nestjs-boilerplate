@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { Auth, GetUser } from "../../auth/decorators";
 import { RequisitionSubBudgetService } from "./requisition-sub-budget.service";
 import { CreateRequisitionSubBudgetDto } from "./dto/create-requisition-sub-budget.dto";
@@ -51,8 +51,8 @@ export class RequisitionSubBudgetController {
   }
 
   @Get("requisitions/all")
-  findAll() {
-    return this.requisitionSubBudgetService.findAll();
+  findAll(@Query("budget_year") budget_year: string) {
+    return this.requisitionSubBudgetService.findAll(+budget_year);
   }
 
   @Get("requisitions/dictionary")
