@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common"
+import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common"
 import { ServeStaticModule } from "@nestjs/serve-static"
 import { join } from "path"
 import { ConfigModule } from "@nestjs/config"
@@ -18,6 +18,7 @@ import { PaymentOrdersModule } from "./payment-orders/payment-orders.module"
 import { CommonModule } from "./common/common.module"
 import { PurchaseOrdersModule } from "./purchase-orders/purchase-orders.module"
 import { SubBudgetsModule } from "./sub-budgets/sub-budgets.module"
+import { BudgetYearMiddleware } from "./common/middleware"
 
 
 @Module({
@@ -55,4 +56,7 @@ import { SubBudgetsModule } from "./sub-budgets/sub-budgets.module"
   controllers: [AppController],
 })
 export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(BudgetYearMiddleware).forRoutes({ path: "*", method: RequestMethod.ALL })
+  }
 }
