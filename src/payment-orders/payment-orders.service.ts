@@ -23,7 +23,7 @@ export class PaymentOrdersService {
   ) {
   }
 
-  async create(createPaymentOrderDto: CreatePaymentOrderDto, user: User) {
+  async create(createPaymentOrderDto: CreatePaymentOrderDto, user: User, budgetYear: string) {
     const {
       payment_number,
       amount,
@@ -44,6 +44,7 @@ export class PaymentOrdersService {
       purchaseOrder,
       check_number,
       is_submitted_to_finance,
+      budget_year: budgetYear
     })
 
     try {
@@ -65,13 +66,14 @@ export class PaymentOrdersService {
     return this.paymentOrderRepository.save(paymentOrder)
   }
 
-  async findAll(show: 'presupuestos' | 'subpresupuestos') {
+  async findAll(show: 'presupuestos' | 'subpresupuestos', budgetYear: string) {
     if (show === 'presupuestos') {
       const paymentOrders = await this.paymentOrderRepository
         .createQueryBuilder("po")
         .innerJoinAndSelect("po.purchaseOrder", "por")
         .innerJoinAndSelect(Requisition, "r", "r.id = por.requisition_id AND por.requisitionType = :requisitionType1", { requisitionType1: "RequisitionEntity" })
         .innerJoinAndSelect(Area, "a", "a.id = r.area_id")
+        .where("po.budget_year = :budgetYear", { budgetYear })
         .getRawMany()
 
       return paymentOrders
@@ -83,6 +85,7 @@ export class PaymentOrdersService {
       .innerJoinAndSelect(RequisitionSubBudget, "rsb", "rsb.id = por.requisition_id AND por.requisitionType = :requisitionType2", { requisitionType2: "RequisitionSubBudgetEntity" })
       .innerJoinAndSelect(SubBudget, "sb", "sb.id = rsb.sub_budget_id")
       .innerJoinAndSelect(Area, "a", "a.id = rsb.area_id")
+      .where("po.budget_year = :budgetYear", { budgetYear })
       .getRawMany()
 
     return paymentOrders

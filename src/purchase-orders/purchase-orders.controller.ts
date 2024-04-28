@@ -1,8 +1,21 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Query } from "@nestjs/common";
-import { PurchaseOrdersService } from "./purchase-orders.service"
-import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from "./dto"
-import { Auth, GetUser } from "../auth/decorators"
-import { User } from "../auth/entities"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req
+} from "@nestjs/common";
+import { PurchaseOrdersService } from "./purchase-orders.service";
+import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from "./dto";
+import { Auth, GetUser } from "../auth/decorators";
+import { User } from "../auth/entities";
+import { BudgetYear } from "../common/decorators";
 
 @Controller("purchase-orders")
 @Auth()
@@ -12,33 +25,37 @@ export class PurchaseOrdersController {
 
   @Post()
   create(
+    @BudgetYear() budgetYear: string,
     @Body() createPurchaseOrderDto: CreatePurchaseOrderDto,
     @GetUser() user: User,
   ) {
-    return this.purchaseOrdersService.create(createPurchaseOrderDto, user)
+    return this.purchaseOrdersService.create(createPurchaseOrderDto, user, budgetYear)
   }
 
   @Post("/requisition-sub-budget")
   createPurchaseOrderRequisitionSubBudget(
+    @BudgetYear() budgetYear: string,
     @Body() createPurchaseOrderDto: CreatePurchaseOrderDto,
     @GetUser() user: User,
   ) {
-    return this.purchaseOrdersService.createPurchaseOrderRequisitionSubBudget(createPurchaseOrderDto, user)
+    return this.purchaseOrdersService.createPurchaseOrderRequisitionSubBudget(createPurchaseOrderDto, user, budgetYear)
   }
 
   @Get("/requisition-sub-budget")
-  findAllWithRequisitionSubBudget() {
-    return this.purchaseOrdersService.findAllWithRequisitionSubBudget()
+  findAllWithRequisitionSubBudget(@BudgetYear() budgetYear: string,) {
+    return this.purchaseOrdersService.findAllWithRequisitionSubBudget(budgetYear)
   }
 
   @Get()
-  findAll() {
-    return this.purchaseOrdersService.findAll()
+  findAll(@BudgetYear() budgetYear: string,) {
+    return this.purchaseOrdersService.findAll(budgetYear)
   }
 
   @Get("dictionary")
-  getDictionary() {
-    return this.purchaseOrdersService.getDictionary()
+  getDictionary(
+    @BudgetYear() budgetYear: string
+  ) {
+    return this.purchaseOrdersService.getDictionary(budgetYear)
   }
 
   @Get(":id")

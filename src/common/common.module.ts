@@ -3,15 +3,16 @@ import { BaseEntity } from "./entities"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { RequisitionsModule } from "../requisitions/requisitions.module"
 import { IsRequisitionIdExistConstraint } from "./validators/IsRequsitionExists"
+import { BudgetYearMiddleware } from "./middleware"
 
 @Module({
   controllers: [],
-  providers: [IsRequisitionIdExistConstraint],
+  providers: [IsRequisitionIdExistConstraint, BudgetYearMiddleware],
   imports: [
     TypeOrmModule.forFeature([BaseEntity]),
     RequisitionsModule
   ],
-  exports: [TypeOrmModule, IsRequisitionIdExistConstraint],
+  exports: [TypeOrmModule, IsRequisitionIdExistConstraint, BudgetYearMiddleware],
 })
 export class CommonModule {
 

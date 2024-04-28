@@ -14,6 +14,7 @@ import { PaymentOrdersService } from "./payment-orders.service"
 import { CreatePaymentOrderDto, UpdatePaymentOrderDto } from "./dto"
 import { Auth, GetUser } from "../auth/decorators"
 import { FileFieldsInterceptor } from "@nestjs/platform-express"
+import { BudgetYear } from "../common/decorators";
 
 @Controller('payment-orders')
 @Auth()
@@ -26,6 +27,7 @@ export class PaymentOrdersController {
     { name: 'check_file', maxCount: 1 },
   ]))
   create(
+    @BudgetYear() budgetYear: string,
     @Body() createPaymentOrderDto: CreatePaymentOrderDto,
     @UploadedFiles() files: { payment_file?: Express.Multer.File[], check_file?: Express.Multer.File[] },
     @GetUser() user,
@@ -38,12 +40,15 @@ export class PaymentOrdersController {
       createPaymentOrderDto.check_file = files.check_file[0];
     }
 
-    return this.paymentOrdersService.create(createPaymentOrderDto, user);
+    return this.paymentOrdersService.create(createPaymentOrderDto, user, budgetYear);
   }
 
   @Get()
-  findAll(@Query('show') show: 'presupuestos' | 'subpresupuestos' = 'presupuestos') {
-    return this.paymentOrdersService.findAll(show);
+  findAll(
+    @BudgetYear() budgetYear: string,
+    @Query('show') show: 'presupuestos' | 'subpresupuestos' = 'presupuestos'
+  ) {
+    return this.paymentOrdersService.findAll(show, budgetYear);
   }
 
   @Get(':id')

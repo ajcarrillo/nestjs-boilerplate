@@ -21,7 +21,7 @@ export class RequisitionsService {
   ) {
   }
 
-  async create(createRequisitionDto: CreateRequisitionDto) {
+  async create(createRequisitionDto: CreateRequisitionDto, budgetYear: string) {
     const existsNumberRequisition = await this.requisitionRepository.findOneBy({ requisition_number: createRequisitionDto.requisition_number })
     const area = await this.areaService.findOne(createRequisitionDto.area_id)
 
@@ -33,13 +33,17 @@ export class RequisitionsService {
       throw new BadRequestException(`El área con el id ${createRequisitionDto.area_id} no existe`)
     }
 
-    const requisition = this.requisitionRepository.create({ ...createRequisitionDto, area })
+    const requisition = this.requisitionRepository.create({ ...createRequisitionDto, area, budget_year: budgetYear })
 
     return this.requisitionRepository.save(requisition)
   }
 
-  findAll() {
-    return this.requisitionRepository.find()
+  findAll(budgetYear: string) {
+    return this.requisitionRepository.find({
+      where: {
+        budget_year: budgetYear
+      }
+    })
   }
 
   async findOne(id: string) {
@@ -135,13 +139,14 @@ export class RequisitionsService {
     return this.requisitionRepository.save(requisition)
   }
 
-  async getDictionary(params: PaginateCollectionDto): Promise<RequisitionDictionaryDto[] | {
+  async getDictionary(params: PaginateCollectionDto, budgetYear: string): Promise<RequisitionDictionaryDto[] | {
     items: RequisitionDictionaryDto[],
     total: number
   }> {
     const qb = this.requisitionRepository
       .createQueryBuilder("requisition")
       .innerJoin("requisition.area", "area")
+      .where("requisition.budget_year = :budgetYear", { budgetYear })
       .select(["requisition.id", "requisition.requisition_number", "area.description"])
       .orderBy("requisition.requisition_number", "DESC")
 

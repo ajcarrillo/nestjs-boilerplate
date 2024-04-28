@@ -1,5 +1,5 @@
 import { BaseEntity } from "src/common/entities"
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { SubBudget } from "./sub-budget.entity"
 
 @Entity('sub_budget_adjustments')
@@ -26,4 +26,8 @@ export class SubBudgetAdjustment extends BaseEntity {
 
   @Column('varchar')
   justification: string;
+
+  @Index()
+  @Column("varchar", { length: 4, nullable: true })
+  budget_year: string
 }

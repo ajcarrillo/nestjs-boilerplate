@@ -80,4 +80,12 @@ export class BudgetsService {
       select: ["id", "year"],
     })
   }
+
+  async findByYear(year: number) {
+    return await this.budgetRepository.findOne({
+      where: {
+        year,
+      },
+    })
+  }
 }

@@ -18,13 +18,16 @@ export class SubBudgetAdjustmentService {
   ) {
   }
 
-  async findAll() {
+  async findAll(budgetYear: string) {
     return this.subBudgetAdjustmentRepository.find({
-      relations: ["sourceSubBudget", "targetSubBudget"]
+      relations: ["sourceSubBudget", "targetSubBudget"],
+      where: {
+        budget_year: budgetYear
+      }
     });
   }
 
-  async create(createSubBudgetAdjustmentDto: CreateSubBudgetAdjustmentDto, user: User) {
+  async create(createSubBudgetAdjustmentDto: CreateSubBudgetAdjustmentDto, user: User, budgetYear: string) {
     const { source_sub_budget_id, target_sub_budget_id, amount } = createSubBudgetAdjustmentDto;
 
     const { sourceSubBudget, targetSubBudget } = await this.findResources(source_sub_budget_id, target_sub_budget_id);
@@ -43,7 +46,8 @@ export class SubBudgetAdjustmentService {
       ...createSubBudgetAdjustmentDto,
       sourceSubBudget,
       targetSubBudget,
-      createdBy: user.id
+      createdBy: user.id,
+      budget_year: budgetYear
     });
 
     await this.subBudgetAdjustmentRepository.save(subBudgetAdjustment);

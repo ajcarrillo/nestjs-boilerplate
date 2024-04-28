@@ -24,7 +24,7 @@ export class RequisitionSubBudgetService {
   ) {
   }
 
-  async create(id: string, createRequisitionSubBudgetDto: CreateRequisitionSubBudgetDto, user: User, file: Express.Multer.File) {
+  async create(id: string, createRequisitionSubBudgetDto: CreateRequisitionSubBudgetDto, user: User, file: Express.Multer.File, budgetYear: string) {
 
     createRequisitionSubBudgetDto.estimated_amount = parseFloat(createRequisitionSubBudgetDto.estimated_amount.toString());
 
@@ -42,7 +42,8 @@ export class RequisitionSubBudgetService {
       estimated_amount,
       subBudget: await this.subBudgetService.findOne(id),
       area: await this.areaService.findOne(createRequisitionSubBudgetDto.area_id),
-      createdBy: user.id
+      createdBy: user.id,
+      budget_year: budgetYear
     });
 
     try {
@@ -61,9 +62,12 @@ export class RequisitionSubBudgetService {
     return await this.requisitionSubBudgetRepository.findOneBy({ id });
   }
 
-  async getDictionary() {
+  async getDictionary(budgetYear: string) {
     const items = await this.requisitionSubBudgetRepository.find({
-      relations: ["subBudget"]
+      relations: ["subBudget"],
+      where: {
+        budget_year: budgetYear
+      }
     });
 
     return items.map(item => ({
@@ -74,9 +78,12 @@ export class RequisitionSubBudgetService {
     }));
   }
 
-  async findAll() {
+  async findAll(budget_year: string) {
     return this.requisitionSubBudgetRepository.find({
-      relations: ["subBudget"]
+      relations: ["subBudget", "subBudget.budget"],
+      where: {
+        budget_year: budget_year
+      }
     });
   }
 

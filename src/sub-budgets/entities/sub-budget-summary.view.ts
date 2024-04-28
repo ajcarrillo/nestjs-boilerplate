@@ -1,4 +1,4 @@
-import { Action, Line } from 'src/budgets/entities';
+import { Action, Budget, Line } from 'src/budgets/entities';
 import { Area } from 'src/employees/entities';
 import { ViewEntity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { SubBudgetAdjustment } from './sub-budget-adjustment.entity';
@@ -91,4 +91,10 @@ export class SubBudgetSummaryView {
     eager: true,
   })
   requisitions: RequisitionSubBudget[]
+
+  @ManyToOne(() => Budget, budget => budget.sub_budgets,{
+    nullable: true,
+    eager: true,
+  })
+  budget: Budget
 }

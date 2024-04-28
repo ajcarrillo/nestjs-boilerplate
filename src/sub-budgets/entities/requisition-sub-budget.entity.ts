@@ -1,5 +1,5 @@
 import { BaseEntity } from "src/common/entities"
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Area } from "../../employees/entities"
 import { SubBudget } from "./sub-budget.entity"
 
@@ -30,4 +30,8 @@ export class RequisitionSubBudget extends BaseEntity {
   @ManyToOne(() => SubBudget, (subBudget) => subBudget.requisitions, { nullable: true })
   @JoinColumn({ name: "sub_budget_id" })
   subBudget: SubBudget
+
+  @Index()
+  @Column("varchar", { length: 4, nullable: true })
+  budget_year: string
 }

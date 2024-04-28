@@ -3,6 +3,7 @@ import { SubBudgetsService } from "./sub-budgets.service"
 import { CreateSubBudgetDto, SubBudgetsDictionaryDto, UpdateSubBudgetDto } from "./dto"
 import { Auth, GetUser } from "../auth/decorators"
 import { User } from "../auth/entities"
+import { BudgetYear } from "../common/decorators";
 
 @Controller('sub-budgets')
 @Auth()
@@ -18,8 +19,8 @@ export class SubBudgetsController {
   }
 
   @Get()
-  findAll() {
-    return this.subBudgetsService.findAll();
+  findAll(@Query("budget") budget: string) {
+    return this.subBudgetsService.findAll(budget);
   }
 
   @Get('dictionary')
@@ -28,8 +29,8 @@ export class SubBudgetsController {
   }
 
   @Get('savings')
-  getSavings() {
-    return this.subBudgetsService.getSavings();
+  getSavings(@BudgetYear() budgetYear: string) {
+    return this.subBudgetsService.getSavings(budgetYear);
   }
 
   @Get(':id')
