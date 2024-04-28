@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "../../common/entities"
 import { PurchaseOrder } from "../../purchase-orders/entities"
 
@@ -31,4 +31,8 @@ export class PaymentOrder extends BaseEntity {
 
   @Column("boolean", { default: false })
   is_submitted_to_finance: boolean
+
+  @Index()
+  @Column("varchar", { length: 4, nullable: true })
+  budget_year: string
 }
