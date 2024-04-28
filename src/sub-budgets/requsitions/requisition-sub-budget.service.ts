@@ -62,9 +62,12 @@ export class RequisitionSubBudgetService {
     return await this.requisitionSubBudgetRepository.findOneBy({ id });
   }
 
-  async getDictionary() {
+  async getDictionary(budgetYear: string) {
     const items = await this.requisitionSubBudgetRepository.find({
-      relations: ["subBudget"]
+      relations: ["subBudget"],
+      where: {
+        budget_year: budgetYear
+      }
     });
 
     return items.map(item => ({

@@ -180,8 +180,12 @@ export class PurchaseOrdersService {
     return this.purchaseOrderRepository.save(purchaseOrder)
   }
 
-  async getDictionary() {
-    const purchaseOrders = await this.purchaseOrderRepository.find()
+  async getDictionary(budgetYear: string) {
+    const purchaseOrders = await this.purchaseOrderRepository.find({
+      where: {
+        budget_year: budgetYear,
+      }
+    })
 
     return purchaseOrders.map(purchaseOrder => ({
       value: purchaseOrder.id,

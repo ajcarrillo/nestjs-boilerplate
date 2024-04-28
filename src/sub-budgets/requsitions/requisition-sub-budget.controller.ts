@@ -58,8 +58,8 @@ export class RequisitionSubBudgetController {
   }
 
   @Get("requisitions/dictionary")
-  getDictionary() {
-    return this.requisitionSubBudgetService.getDictionary();
+  getDictionary(@BudgetYear() budgetYear: string) {
+    return this.requisitionSubBudgetService.getDictionary(budgetYear);
   }
 
   @Delete(":id/requisitions/:requisitionId")

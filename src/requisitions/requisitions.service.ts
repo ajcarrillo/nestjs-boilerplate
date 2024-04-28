@@ -139,13 +139,14 @@ export class RequisitionsService {
     return this.requisitionRepository.save(requisition)
   }
 
-  async getDictionary(params: PaginateCollectionDto): Promise<RequisitionDictionaryDto[] | {
+  async getDictionary(params: PaginateCollectionDto, budgetYear: string): Promise<RequisitionDictionaryDto[] | {
     items: RequisitionDictionaryDto[],
     total: number
   }> {
     const qb = this.requisitionRepository
       .createQueryBuilder("requisition")
       .innerJoin("requisition.area", "area")
+      .where("requisition.budget_year = :budgetYear", { budgetYear })
       .select(["requisition.id", "requisition.requisition_number", "area.description"])
       .orderBy("requisition.requisition_number", "DESC")
 

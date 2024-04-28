@@ -24,8 +24,11 @@ export class RequisitionsController {
   }
 
   @Get('dictionary')
-  getDictionary(@Query() params: PaginateCollectionDto) {
-    return this.requisitionsService.getDictionary(params);
+  getDictionary(
+    @BudgetYear() budgetYear: string,
+    @Query() params: PaginateCollectionDto
+  ) {
+    return this.requisitionsService.getDictionary(params, budgetYear);
   }
 
   @Get(':id')

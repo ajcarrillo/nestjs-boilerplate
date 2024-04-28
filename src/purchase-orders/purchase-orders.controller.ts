@@ -52,8 +52,10 @@ export class PurchaseOrdersController {
   }
 
   @Get("dictionary")
-  getDictionary() {
-    return this.purchaseOrdersService.getDictionary()
+  getDictionary(
+    @BudgetYear() budgetYear: string
+  ) {
+    return this.purchaseOrdersService.getDictionary(budgetYear)
   }
 
   @Get(":id")
