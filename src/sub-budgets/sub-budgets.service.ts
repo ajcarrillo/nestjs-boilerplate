@@ -13,6 +13,7 @@ import { PurchaseOrder } from "../purchase-orders/entities";
 import { PaymentOrder } from "../payment-orders/entities";
 import { SubBudgetSummaryView } from "./entities"
 import { BudgetsService } from "src/budgets/budgets.service"
+import { Budget } from "../budgets/entities";
 
 
 @Injectable()
@@ -30,7 +31,7 @@ export class SubBudgetsService {
   ) {
   }
 
-  async getSavings() {
+  async getSavings(budgetYear: string) {
     return await this.subBudgetsRepository
       .createQueryBuilder("sb")
       .select([
@@ -49,9 +50,11 @@ export class SubBudgetsService {
       .innerJoin(RequisitionSubBudget, "rsb", "sb.id = rsb.subBudget")
       .innerJoin(PurchaseOrder, "po", "rsb.id = po.requisition_id")
       .innerJoin(PaymentOrder, "payo", "po.id = payo.purchaseOrder")
+      .innerJoin(Budget, "b", "sb.budget = b.id")
       .where("po.requisitionType = :requisitionType", {
         requisitionType: "RequisitionSubBudgetEntity",
       })
+      .where("b.year = :budgetYear", { budgetYear })
       .groupBy("sb.id, l.name, a.name, ar.description")
       .getRawMany();
   }
