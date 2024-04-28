@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Area } from "../../employees/entities"
 import { RequisitionDetail } from "./requisition-detail.entity"
 
@@ -28,4 +28,8 @@ export class Requisition {
 
   @OneToMany(() => RequisitionDetail, (requisitionDetail) => requisitionDetail.requisition)
   details: RequisitionDetail[];
+
+  @Index()
+  @Column("varchar", { length: 4, nullable: true })
+  budget_year: string
 }

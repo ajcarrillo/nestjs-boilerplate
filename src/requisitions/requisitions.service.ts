@@ -21,7 +21,7 @@ export class RequisitionsService {
   ) {
   }
 
-  async create(createRequisitionDto: CreateRequisitionDto) {
+  async create(createRequisitionDto: CreateRequisitionDto, budgetYear: string) {
     const existsNumberRequisition = await this.requisitionRepository.findOneBy({ requisition_number: createRequisitionDto.requisition_number })
     const area = await this.areaService.findOne(createRequisitionDto.area_id)
 
@@ -33,13 +33,17 @@ export class RequisitionsService {
       throw new BadRequestException(`El área con el id ${createRequisitionDto.area_id} no existe`)
     }
 
-    const requisition = this.requisitionRepository.create({ ...createRequisitionDto, area })
+    const requisition = this.requisitionRepository.create({ ...createRequisitionDto, area, budget_year: budgetYear })
 
     return this.requisitionRepository.save(requisition)
   }
 
-  findAll() {
-    return this.requisitionRepository.find()
+  findAll(budgetYear: string) {
+    return this.requisitionRepository.find({
+      where: {
+        budget_year: budgetYear
+      }
+    })
   }
 
   async findOne(id: string) {
