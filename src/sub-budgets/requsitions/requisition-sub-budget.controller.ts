@@ -5,6 +5,7 @@ import { CreateRequisitionSubBudgetDto } from "./dto/create-requisition-sub-budg
 import { User } from "../../auth/entities";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UpdateRequisitionEventDto } from "./dto/update-requisition-event.dto";
+import { BudgetYear } from "../../common/decorators";
 
 @Controller("sub-budgets")
 @Auth()
@@ -17,12 +18,13 @@ export class RequisitionSubBudgetController {
   @Post(":id/requisitions")
   @UseInterceptors(FileInterceptor("file"))
   create(
+    @BudgetYear() budgetYear: string,
     @Param("id") id: string,
     @Body() createRequisitionSubBudgetDto: CreateRequisitionSubBudgetDto,
     @UploadedFile() file: Express.Multer.File,
     @GetUser() user: User
   ) {
-    return this.requisitionSubBudgetService.create(id, createRequisitionSubBudgetDto, user, file);
+    return this.requisitionSubBudgetService.create(id, createRequisitionSubBudgetDto, user, file, budgetYear);
   }
 
   @Get(":id/requisitions/:requisitionId")
@@ -51,8 +53,8 @@ export class RequisitionSubBudgetController {
   }
 
   @Get("requisitions/all")
-  findAll(@Query("budget_year") budget_year: string) {
-    return this.requisitionSubBudgetService.findAll(+budget_year);
+  findAll(@BudgetYear() budgetYear: string) {
+    return this.requisitionSubBudgetService.findAll(budgetYear);
   }
 
   @Get("requisitions/dictionary")
