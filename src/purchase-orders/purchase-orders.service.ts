@@ -24,7 +24,7 @@ export class PurchaseOrdersService {
   ) {
   }
 
-  async create(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User) {
+  async create(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User, budgetYear: string) {
     const requisition = await this.requisitionService.findOne(createPurchaseOrderDto.requisition_id)
 
     if (!requisition) {
@@ -33,6 +33,7 @@ export class PurchaseOrdersService {
 
     const purchaseOrder = this.purchaseOrderRepository.create({
       ...createPurchaseOrderDto,
+      budget_year: budgetYear,
       requisitionType: "RequisitionEntity",
       createdBy: user.id,
     })
@@ -40,7 +41,7 @@ export class PurchaseOrdersService {
     return this.purchaseOrderRepository.save(purchaseOrder)
   }
 
-  async createPurchaseOrderRequisitionSubBudget(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User) {
+  async createPurchaseOrderRequisitionSubBudget(createPurchaseOrderDto: CreatePurchaseOrderDto, user: User, budgetYear:string) {
     const requisition = await this.requisitionSubBudgetService.findOne(createPurchaseOrderDto.requisition_id)
 
     if (!requisition) {
@@ -49,6 +50,7 @@ export class PurchaseOrdersService {
 
     const purchaseOrder = this.purchaseOrderRepository.create({
       ...createPurchaseOrderDto,
+      budget_year: budgetYear,
       requisitionType: "RequisitionSubBudgetEntity",
       createdBy: user.id,
     })
@@ -56,7 +58,7 @@ export class PurchaseOrdersService {
     return this.purchaseOrderRepository.save(purchaseOrder)
   }
 
-  async findAll() {
+  async findAll(budgetYear: string) {
     const rawResult = await this.purchaseOrderRepository
       .createQueryBuilder("purchase_order")
       .addSelect("r.*")
@@ -65,6 +67,7 @@ export class PurchaseOrdersService {
         requisitionType1: "RequisitionEntity",
       })
       .innerJoin("r.area", "a", "a.id = r.area_id")
+      .where("purchase_order.budget_year = :budgetYear", { budgetYear })
       .getRawMany()
 
     return rawResult.map(row => ({
@@ -89,7 +92,7 @@ export class PurchaseOrdersService {
     }))
   }
 
-  async findAllWithRequisitionSubBudget() {
+  async findAllWithRequisitionSubBudget(budgetYear: string) {
     const rawResult = await this.purchaseOrderRepository
       .createQueryBuilder("purchase_order")
       .addSelect("r.*")
@@ -100,6 +103,7 @@ export class PurchaseOrdersService {
       })
       .innerJoin("r.subBudget", "sb", "sb.id = r.sub_budget_id")
       .innerJoin("r.area", "a", "a.id = r.area_id")
+      .where("purchase_order.budget_year = :budgetYear", { budgetYear })
       .getRawMany()
 
     return rawResult.map(row => ({

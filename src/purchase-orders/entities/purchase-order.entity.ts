@@ -1,4 +1,4 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, In, Index, PrimaryGeneratedColumn } from "typeorm"
 import { BaseEntity } from "../../common/entities"
 
 @Entity("purchase_orders")
@@ -21,4 +21,8 @@ export class PurchaseOrder extends BaseEntity {
   @Index()
   @Column({ type: "varchar", length: 255 })
   requisitionType: "RequisitionEntity" | "RequisitionSubBudgetEntity"
+
+  @Index()
+  @Column("varchar", { length: 4, nullable: true })
+  budget_year: string
 }
