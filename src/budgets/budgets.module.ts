@@ -15,10 +15,14 @@ import { BudgetDetailMonth } from "./entities/budget-detail-month.entity"
 import { BudgetDetailsMonthController } from "./budget-details/budget-details-month.controller"
 import { BudgetDetailsMonthService } from "./budget-details/budget-details-month.service"
 import { AuthModule } from "../auth/auth.module"
+import { BudgetCapsController } from './budget-caps/budget-caps.controller';
+import { BudgetCapsService } from './budget-caps/budget-caps.service';
+import { BudgetCap } from "./entities/budget-cap.entity"
+import { AreaAllocation } from "./entities/area-allocation.entity"
 
 @Module({
-  controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController, BudgetDetailsMonthController],
-  providers: [BudgetsService, ArticlesService, LinesService, ActionsService, BudgetDetailsService, BudgetDetailsMonthService],
+  controllers: [BudgetsController, ArticlesController, LinesController, ActionsController, BudgetDetailsController, BudgetDetailsMonthController, BudgetCapsController],
+  providers: [BudgetsService, ArticlesService, LinesService, ActionsService, BudgetDetailsService, BudgetDetailsMonthService, BudgetCapsService],
   imports: [
     TypeOrmModule.forFeature([
       Action,
@@ -26,7 +30,9 @@ import { AuthModule } from "../auth/auth.module"
       Budget,
       BudgetDetail,
       Line,
-      BudgetDetailMonth
+      BudgetDetailMonth,
+      BudgetCap,
+      AreaAllocation
     ]),
     AuthModule
   ],

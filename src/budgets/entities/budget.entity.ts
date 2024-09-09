@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { BudgetDetail } from "./budget-detail.entity"
 import { SubBudget } from "src/sub-budgets/entities"
+import { BudgetCap } from "./budget-cap.entity"
 
 @Entity("budgets")
 export class Budget {
@@ -15,5 +16,8 @@ export class Budget {
 
   @OneToMany(() => SubBudget, sub_budget => sub_budget.budget)
   sub_budgets: SubBudget[]
+
+  @OneToMany(() => BudgetCap, budgetCap => budgetCap.budget)
+  budgetCaps: BudgetCap[];
 }
 
