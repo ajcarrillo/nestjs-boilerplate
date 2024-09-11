@@ -1,21 +1,31 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
-import { Budget } from './budget.entity';
-import { AreaAllocation } from './area-allocation.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  Generated,
+} from "typeorm"
+import { Budget } from "./budget.entity"
+import { AreaAllocation } from "./area-allocation.entity"
 
-@Entity('budget_caps')
+@Entity("budget_caps")
 export class BudgetCap {
-  @PrimaryGeneratedColumn('increment', { type: 'bigint' })
-    id: number;
+  @PrimaryGeneratedColumn("increment", { type: "bigint" })
+  id: number
 
-  @Column("uuid")
-    uuid: string;
+  @Column({ type: "uuid" })
+  @Generated("uuid")
+  uuid: string
 
-  @ManyToOne(() => Budget, budget => budget.budgetCaps, { onDelete: 'CASCADE' })
-    budget: Budget;
+  @ManyToOne(() => Budget, (budget) => budget.budgetCaps, {
+    onDelete: "CASCADE",
+  })
+  budget: Budget
 
-  @Column({ type: 'numeric', precision: 15, scale: 2 })
-    totalAmount: number;
+  @Column({ type: "numeric", precision: 15, scale: 2 })
+  totalAmount: number
 
-  @OneToMany(() => AreaAllocation, areaAllocation => areaAllocation.budgetCap)
-    areaAllocations: AreaAllocation[];
+  @OneToMany(() => AreaAllocation, (areaAllocation) => areaAllocation.budgetCap)
+  areaAllocations: AreaAllocation[]
 }
