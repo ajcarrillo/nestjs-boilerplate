@@ -19,6 +19,9 @@ import { BudgetCapsController } from "./budget-caps/budget-caps.controller"
 import { BudgetCapsService } from "./budget-caps/budget-caps.service"
 import { BudgetCap } from "./entities/budget-cap.entity"
 import { AreaAllocation } from "./entities/area-allocation.entity"
+import { AreaAllocationsController } from "./area-allocations/area-allocations.controller"
+import { AreaAllocationsService } from "./area-allocations/area-allocations.service"
+import { EmployeesModule } from "src/employees/employees.module"
 
 @Module({
   controllers: [
@@ -29,6 +32,7 @@ import { AreaAllocation } from "./entities/area-allocation.entity"
     BudgetDetailsController,
     BudgetDetailsMonthController,
     BudgetCapsController,
+    AreaAllocationsController,
   ],
   providers: [
     BudgetsService,
@@ -38,6 +42,7 @@ import { AreaAllocation } from "./entities/area-allocation.entity"
     BudgetDetailsService,
     BudgetDetailsMonthService,
     BudgetCapsService,
+    AreaAllocationsService,
   ],
   imports: [
     TypeOrmModule.forFeature([
@@ -51,6 +56,7 @@ import { AreaAllocation } from "./entities/area-allocation.entity"
       AreaAllocation,
     ]),
     AuthModule,
+    EmployeesModule,
   ],
   exports: [
     TypeOrmModule,
