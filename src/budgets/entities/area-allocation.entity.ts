@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   Generated,
+  OneToMany,
 } from "typeorm"
 import { BudgetCap } from "./budget-cap.entity"
 import { Area } from "src/employees/entities"
+import { AreaAllocationMovement } from "./area-allocation-movement.entity"
 
 @Entity("area_allocations")
 export class AreaAllocation {
@@ -29,4 +31,11 @@ export class AreaAllocation {
 
   @Column({ type: "numeric", precision: 15, scale: 2 })
   totalAmount: number
+
+  @OneToMany(
+    () => AreaAllocationMovement,
+    (movement) => movement.areaAllocation,
+    { cascade: true }
+  )
+  areaAllocationMovements: AreaAllocationMovement[]
 }
