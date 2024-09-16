@@ -1,4 +1,4 @@
-import { IsUUID, IsNumber, IsOptional } from "class-validator"
+import { IsUUID, IsNumber } from "class-validator"
 
 export class CreateAreaAllocationDto {
   @IsUUID()
@@ -8,9 +8,5 @@ export class CreateAreaAllocationDto {
   budgetCapId: string
 
   @IsNumber({ maxDecimalPlaces: 2 })
-  percentage: number
-
-  @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 2 })
-  directAllocation?: number
+  totalAmount: number
 }

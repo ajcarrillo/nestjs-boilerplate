@@ -27,9 +27,6 @@ export class AreaAllocation {
   })
   budgetCap: BudgetCap
 
-  @Column({ type: "numeric", precision: 5, scale: 2 })
-  percentage: number
-
-  @Column({ type: "numeric", precision: 15, scale: 2, default: 0 })
-  directAllocation: number
+  @Column({ type: "numeric", precision: 15, scale: 2 })
+  totalAmount: number
 }

@@ -64,8 +64,7 @@ export class AreaAllocationsController {
       uuid: areaAllocation.uuid,
       areaId: areaAllocation.area.id,
       budgetCapId: areaAllocation.budgetCap.uuid,
-      percentage: areaAllocation.percentage,
-      directAllocation: areaAllocation.directAllocation,
+      totalAmount: +areaAllocation.totalAmount,
     }
   }
 }
