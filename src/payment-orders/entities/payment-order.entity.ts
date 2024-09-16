@@ -1,4 +1,11 @@
-import { Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm"
 import { BaseEntity } from "../../common/entities"
 import { PurchaseOrder } from "../../purchase-orders/entities"
 
@@ -11,7 +18,7 @@ export class PaymentOrder extends BaseEntity {
   @JoinColumn({ name: "purchase_order_id" })
   purchaseOrder: PurchaseOrder
 
-  @Column("varchar", )
+  @Column("varchar")
   payment_number: string
 
   @Column("decimal", { precision: 10, scale: 2 })

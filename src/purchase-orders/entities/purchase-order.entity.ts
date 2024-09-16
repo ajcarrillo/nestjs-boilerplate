@@ -9,7 +9,7 @@ export class PurchaseOrder extends BaseEntity {
   @Column("uuid")
   requisition_id: string
 
-  @Column("varchar", { length: 3, nullable: true })
+  @Column("varchar", { nullable: true })
   order_number: string
 
   @Column("date")

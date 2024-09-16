@@ -1,4 +1,12 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm"
 import { Area } from "../../employees/entities"
 import { RequisitionDetail } from "./requisition-detail.entity"
 
@@ -7,7 +15,7 @@ export class Requisition {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
-  @Column("varchar", { length: 3 })
+  @Column("varchar", { nullable: true })
   requisition_number: string
 
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
@@ -22,12 +30,18 @@ export class Requisition {
   @Column("varchar", { nullable: true })
   file: string
 
-  @ManyToOne(() => Area, (area) => area.requisitions, { nullable: true, eager: true })
+  @ManyToOne(() => Area, (area) => area.requisitions, {
+    nullable: true,
+    eager: true,
+  })
   @JoinColumn({ name: "area_id" })
   area: Area
 
-  @OneToMany(() => RequisitionDetail, (requisitionDetail) => requisitionDetail.requisition)
-  details: RequisitionDetail[];
+  @OneToMany(
+    () => RequisitionDetail,
+    (requisitionDetail) => requisitionDetail.requisition
+  )
+  details: RequisitionDetail[]
 
   @Index()
   @Column("varchar", { length: 4, nullable: true })
