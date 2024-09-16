@@ -2,7 +2,16 @@ import { Module } from "@nestjs/common"
 import { BudgetsService } from "./budgets.service"
 import { BudgetsController } from "./budgets.controller"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { Action, Article, Budget, BudgetDetail, Line } from "./entities"
+import {
+  Action,
+  AreaAllocationMovement,
+  AreaBudgetCapAllocationView,
+  Article,
+  Budget,
+  BudgetDetail,
+  Line,
+  MonthlyAreaAllocation,
+} from "./entities"
 import { ArticlesController } from "./articles/articles.controller"
 import { ArticlesService } from "./articles/articles.service"
 import { LinesController } from "./lines/lines.controller"
@@ -22,6 +31,10 @@ import { AreaAllocation } from "./entities/area-allocation.entity"
 import { AreaAllocationsController } from "./area-allocations/area-allocations.controller"
 import { AreaAllocationsService } from "./area-allocations/area-allocations.service"
 import { EmployeesModule } from "src/employees/employees.module"
+import { AreaAllocationMovementsService } from "./area-allocation-movements/area-allocation-movements.service"
+import { AreaAllocationMovementsController } from "./area-allocation-movements/area-allocation-movements.controller"
+import { MonthlyAreaAllocationController } from "./monthly-area-allocation/monthly-area-allocation.controller"
+import { MonthlyAreaAllocationService } from "./monthly-area-allocation/monthly-area-allocation.service"
 
 @Module({
   controllers: [
@@ -33,6 +46,8 @@ import { EmployeesModule } from "src/employees/employees.module"
     BudgetDetailsMonthController,
     BudgetCapsController,
     AreaAllocationsController,
+    MonthlyAreaAllocationController,
+    AreaAllocationMovementsController,
   ],
   providers: [
     BudgetsService,
@@ -43,6 +58,8 @@ import { EmployeesModule } from "src/employees/employees.module"
     BudgetDetailsMonthService,
     BudgetCapsService,
     AreaAllocationsService,
+    MonthlyAreaAllocationService,
+    AreaAllocationMovementsService,
   ],
   imports: [
     TypeOrmModule.forFeature([
@@ -54,6 +71,9 @@ import { EmployeesModule } from "src/employees/employees.module"
       BudgetDetailMonth,
       BudgetCap,
       AreaAllocation,
+      MonthlyAreaAllocation,
+      AreaAllocationMovement,
+      AreaBudgetCapAllocationView,
     ]),
     AuthModule,
     EmployeesModule,
