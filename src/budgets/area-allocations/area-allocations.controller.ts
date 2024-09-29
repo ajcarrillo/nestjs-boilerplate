@@ -6,6 +6,9 @@ import {
   Param,
   Patch,
   Delete,
+  Query,
+  ParseUUIDPipe,
+  NotFoundException,
 } from "@nestjs/common"
 import { AreaAllocationsService } from "./area-allocations.service"
 import {
@@ -57,6 +60,17 @@ export class AreaAllocationsController {
   @Delete(":uuid")
   async remove(@Param("uuid") uuid: string): Promise<void> {
     await this.areaAllocationService.remove(uuid)
+  }
+
+  @Get("budget/:budgetId/area/:areaId")
+  async findByBudgetAndArea(
+    @Param("budgetId", ParseUUIDPipe) budgetId: string,
+    @Param("areaId", ParseUUIDPipe) areaId: string
+  ) {
+    const areaAllocations =
+      await this.areaAllocationService.findByBudgetAndArea(budgetId, areaId)
+
+    return this.toDto(areaAllocations)
   }
 
   private toDto(areaAllocation: AreaAllocation): AreaAllocationDto {

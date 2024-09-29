@@ -55,6 +55,7 @@ export class AreaAllocationsService {
 
   async findOneByUuid(uuid: string): Promise<AreaAllocation> {
     const areaAllocation = await this.areaAllocationRepository.findOne({
+      relations: ["area", "budgetCap"],
       where: { uuid },
     })
     if (!areaAllocation) {
@@ -82,5 +83,27 @@ export class AreaAllocationsService {
   async remove(uuid: string): Promise<void> {
     const areaAllocation = await this.findOneByUuid(uuid)
     await this.areaAllocationRepository.remove(areaAllocation)
+  }
+
+  async findByBudgetAndArea(budgetId: string, areaId: string) {
+    const areaAllocation = await this.areaAllocationRepository.findOne({
+      relations: ["area", "budgetCap"],
+      where: {
+        budgetCap: {
+          budget: {
+            id: budgetId,
+          },
+        },
+        area: {
+          id: areaId,
+        },
+      },
+    })
+
+    if (!areaAllocation) {
+      throw new NotFoundException("Area Allocation not found.")
+    }
+
+    return areaAllocation
   }
 }

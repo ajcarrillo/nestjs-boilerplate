@@ -293,6 +293,7 @@ export class MonthlyAreaAllocationService {
       uuid: entity.uuid,
       month: entity.month,
       year: entity.year,
+      areaId: entity.areaId,
       allocatedAmount: +entity.allocatedAmount,
     }
   }
