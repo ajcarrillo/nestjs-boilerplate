@@ -5,21 +5,27 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { isUUID } from "class-validator"
 import * as bcrypt from "bcrypt"
-
+import { AreasService } from "src/employees/areas/areas.service"
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {
-  }
+    private readonly areaService: AreasService
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { password, ...userData } = createUserDto
+    let entityArea = null
+    const { password, area, ...userData } = createUserDto
+
+    if (area) {
+      entityArea = await this.areaService.findOne(area)
+    }
 
     const user = this.userRepository.create({
       ...userData,
+      area: entityArea,
       password: bcrypt.hashSync(password, 10),
     })
 
@@ -30,7 +36,20 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.userRepository.find()
+    const users = await this.userRepository.find({
+      relations: ["area"],
+    })
+
+    return users.map((user) => ({
+      ...user,
+      area: user.area
+        ? {
+            value: user.area.id,
+            label: user.area.alias,
+            full_description: user.area.description,
+          }
+        : null,
+    }))
   }
 
   async findOne(term: string) {
@@ -41,23 +60,29 @@ export class UsersService {
     } else {
       const queryBuilder = this.userRepository.createQueryBuilder("user")
       user = await queryBuilder
-        .where("email LIKE :term OR LOWER(first_name) LIKE :term", { term: `%${term.toLowerCase()}%` })
+        .where("email LIKE :term OR LOWER(first_name) LIKE :term", {
+          term: `%${term.toLowerCase()}%`,
+        })
         .getOne()
     }
 
-    if (!user)
-      throw new NotFoundException("User not found")
+    if (!user) throw new NotFoundException("User not found")
 
     return user
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const { password, ...userData } = updateUserDto
+    let entityArea = null
+    const { password, area, ...userData } = updateUserDto
+
+    if (area) {
+      entityArea = await this.areaService.findOne(area)
+    }
 
     const userToUpdate = await this.userRepository.preload({
       id,
+      area: entityArea,
       ...userData,
-      password: bcrypt.hashSync(password, 10),
     })
 
     if (!userToUpdate) {
