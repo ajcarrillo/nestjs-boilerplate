@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Requisition } from "../../requisitions/entities/requisition.entity"
 import { AreaAllocation } from "src/budgets/entities/area-allocation.entity"
 import { MonthlyAreaAllocation } from "src/budgets/entities/monthly-area-allocation.entity"
+import { User } from "src/auth/entities"
 
 @Entity("areas")
 export class Area {
@@ -29,4 +30,7 @@ export class Area {
 
   @OneToMany(() => MonthlyAreaAllocation, (allocation) => allocation.area)
   monthlyBudgetAllocations: MonthlyAreaAllocation[]
+
+  @OneToMany(() => User, (user) => user.area)
+  users: User[]
 }
