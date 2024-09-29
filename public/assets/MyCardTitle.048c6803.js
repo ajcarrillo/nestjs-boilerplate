@@ -1,1 +1,0 @@
-import{j as e,p as s,ag as a,t as n}from"./index.2447aa50.js";const o={class:"text-h6"},l=e({__name:"MyCardTitle",props:{title:null},setup(t){return(r,c)=>(s(),a("div",o,n(t.title),1))}});export{l as _};

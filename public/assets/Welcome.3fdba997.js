@@ -1,0 +1,1 @@
+import{Q as a}from"./QPage.6112cc6b.js";import{_ as t}from"./plugin-vue_export-helper.21dcd24c.js";import{p as s,k as o,l as r,s as e}from"./index.33aee9c3.js";const c={},_=e("div",{class:"tw-max-w-screen-2xl tw-mx-auto"},[e("h1",{class:"text-h2"},"Hola")],-1);function n(l,m){return s(),o(a,{padding:""},{default:r(()=>[_]),_:1})}var p=t(c,[["render",n]]);export{p as default};
