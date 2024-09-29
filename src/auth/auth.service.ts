@@ -9,17 +9,16 @@ import { JwtService } from "@nestjs/jwt"
 
 @Injectable()
 export class AuthService {
-  private readonly logger = new Logger("AuthService");
+  private readonly logger = new Logger("AuthService")
 
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     protected readonly jwtService: JwtService
-  ) {
-  }
+  ) {}
 
   async login(loginUserDto: LoginUserDto) {
-    const { email, password } = loginUserDto;
+    const { email, password } = loginUserDto
 
     const user = await this.userRepository.findOne({
       where: { email },
@@ -33,21 +32,23 @@ export class AuthService {
         motherName: true,
         isActive: true,
       },
-    });
+      relations: ["area"],
+    })
 
-    if (!user) throw new UnauthorizedException("Credentials are invalid");
-    if (!bcrypt.compareSync(password, user.password)) throw new UnauthorizedException("Credentials are invalid");
+    if (!user) throw new UnauthorizedException("Credentials are invalid")
+    if (!bcrypt.compareSync(password, user.password))
+      throw new UnauthorizedException("Credentials are invalid")
 
-    delete user.password;
+    delete user.password
 
     return {
       ...user,
-      token: this.getJwtToken({ id: user.id })
-    };
+      token: this.getJwtToken({ id: user.id }),
+    }
   }
 
   private getJwtToken(payload: JwtPayload): string {
-    const token = this.jwtService.sign(payload);
-    return token;
+    const token = this.jwtService.sign(payload)
+    return token
   }
 }

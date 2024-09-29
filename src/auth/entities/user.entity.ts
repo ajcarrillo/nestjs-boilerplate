@@ -1,15 +1,23 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm"
 import { MinLength } from "class-validator"
+import { Area } from "src/employees/entities"
 
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id: string
 
   @Column("varchar", {
     unique: true,
   })
-  email: string;
+  email: string
 
   @Column("varchar", {
     select: false,
@@ -38,6 +46,11 @@ export class User {
     default: ["user"],
   })
   roles: string[]
+
+  @ManyToOne(() => Area, (area) => area.users, {
+    nullable: true,
+  })
+  area: Area
 
   @BeforeInsert()
   normalizeEmailOnInsert() {
