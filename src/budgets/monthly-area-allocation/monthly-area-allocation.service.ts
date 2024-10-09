@@ -288,6 +288,20 @@ export class MonthlyAreaAllocationService {
     }
   }
 
+  async getAll(budgetYear: number) {
+    return this.monthlyAreaAllocationRepository.find({
+      relations: ["area"],
+      where: {
+        year: budgetYear,
+      },
+      order: {
+        area: {
+          description: "DESC",
+        },
+      },
+    })
+  }
+
   toDto(entity: MonthlyAreaAllocation) {
     return {
       uuid: entity.uuid,
@@ -295,6 +309,17 @@ export class MonthlyAreaAllocationService {
       year: entity.year,
       areaId: entity.areaId,
       allocatedAmount: +entity.allocatedAmount,
+    }
+  }
+
+  toDtoWithArea(entity: MonthlyAreaAllocation) {
+    return {
+      uuid: entity.uuid,
+      month: entity.month,
+      year: entity.year,
+      areaId: entity.areaId,
+      allocatedAmount: +entity.allocatedAmount,
+      areaName: entity.area.description,
     }
   }
 }

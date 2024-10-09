@@ -60,4 +60,14 @@ export class MonthlyAreaAllocationController {
 
     return this.monthlyBudgetAllocationService.toDto(entity)
   }
+
+  @Get()
+  async getAll(@Query("budgetYear", ParseIntPipe) budgetYear: number) {
+    const entities =
+      await this.monthlyBudgetAllocationService.getAll(budgetYear)
+
+    return entities.map((entity) =>
+      this.monthlyBudgetAllocationService.toDtoWithArea(entity)
+    )
+  }
 }
