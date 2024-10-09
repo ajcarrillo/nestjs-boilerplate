@@ -1,0 +1,1 @@
+import{f as i}from"./index.c148c0c6.js";import{a}from"./index.2cf0d985.js";const r=a.create({baseURL:"https://nestjs-boilerplate-production.up.railway.app"});var e=i(({app:o})=>{o.config.globalProperties.$axios=a,o.config.globalProperties.$api=r});export{r as api,e as default};
