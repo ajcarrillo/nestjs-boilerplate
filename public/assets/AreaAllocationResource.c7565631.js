@@ -1,0 +1,1 @@
+import{p as e}from"./BudgetResource.e21a87b9.js";var t={getAreaAllocations(){return e.get("/area-allocations")},storeAreaAllocation(a){return e.post("/area-allocations",a)},updateAreaAllocation(a,o){return e.patch(`/area-allocations/${a}`,o)},getAreaAllocationByuBudgetIdAndAreaId({budgetId:a,areaId:o}){return e.get(`/area-allocations/budget/${a}/area/${o}`)}};export{t as A};
